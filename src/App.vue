@@ -175,8 +175,10 @@ nav {
   position: relative;
   margin-top: 55px;
   //为了使auth页面居中高度显示正常..
-  height: 100vh;
-  // transform: translateX(0);
+  height: 100%;
+  @media screen and (max-width: 500px) {
+    height: auto;
+  }
 }
 // #nav {
 //   min-height: 30%;

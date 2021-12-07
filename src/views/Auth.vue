@@ -111,7 +111,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
+  @media screen and (max-width: 500px) {
+    height: 100%;
+  }
   background-color: var(--bgColor);
 }
 .auth-wrapper {
@@ -142,7 +145,7 @@ export default {
   .auth-wrapper {
     flex-direction: column;
     height: 650px;
-    margin-top: 15vh;
+    margin-top: 10vh;
     margin-bottom: 10vh;
   }
   .login-wrapper {
