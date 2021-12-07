@@ -81,7 +81,7 @@ export default {
     };
   },
   mounted() {
-    gsap.from(".auth-wrapper", {
+    gsap.from(".auth-wrapper", 0.7, {
       x: -40,
       opacity: 0,
     });
