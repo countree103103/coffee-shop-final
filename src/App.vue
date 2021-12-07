@@ -9,7 +9,7 @@
         <li class="nav--item-left">
           <router-link to="menu">菜单</router-link>
         </li>
-        <li id="logo"><router-link to="Customize">自定义</router-link></li>
+        <li id="logo"><router-link to="Customize">定制</router-link></li>
         <li class="nav--item-right">
           <router-link to="cart"
             ><svg
@@ -58,8 +58,17 @@
       </ul>
     </nav>
 
-    <div id="router-view">
+    <!-- <div id="router-view">
       <router-view />
+    </div> -->
+    <div id="router-view">
+      <transition :name="$store.state.transitionName" mode="out-in">
+        <keep-alive>
+          <router-view v-slot="{ Component }">
+            <component :is="Component"></component>
+          </router-view>
+        </keep-alive>
+      </transition>
     </div>
   </div>
 </template>
@@ -167,8 +176,59 @@ nav {
   margin-top: 55px;
   //为了使auth页面居中高度显示正常..
   height: 100vh;
+  // transform: translateX(0);
 }
 // #nav {
 //   min-height: 30%;
+// }
+
+.slide-left-enter-active {
+  animation: ani-slide-left 0.3s;
+}
+.slide-left-leave-active {
+  animation: ani-slide-right 0.2s reverse;
+}
+
+.slide-right-enter-active {
+  animation: ani-slide-right 0.2s;
+}
+.slide-right-leave-active {
+  animation: ani-slide-left 0.3s reverse;
+}
+
+@keyframes ani-slide-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ani-slide-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+// .slide-left-enter,
+// .slide-left-leave {
+//   transform: translateX(-100%);
+// }
+
+// .slide-left-leave-to {
+//   transform: translateX(-100%);
+// }
+
+// .slide-right-enter,
+// .slide-right-leave {
+//   transform: translateX(100%);
+// }
+
+// .slide-right-leave-to {
+//   transform: translateX(100%);
 // }
 </style>
