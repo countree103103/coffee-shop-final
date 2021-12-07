@@ -63,11 +63,11 @@
     </div> -->
     <div id="router-view">
       <transition :name="$store.state.transitionName" mode="out-in">
-        <keep-alive>
-          <router-view v-slot="{ Component }">
-            <component :is="Component"></component>
-          </router-view>
-        </keep-alive>
+        <!-- <keep-alive> -->
+        <router-view v-slot="{ Component }">
+          <component :is="Component"></component>
+        </router-view>
+        <!-- </keep-alive> -->
       </transition>
     </div>
   </div>
