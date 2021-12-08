@@ -42,7 +42,7 @@ const routes = [
     name: "Customize",
     component: () => import("../views/Coffee.vue"),
     meta: {
-      index: 3,
+      index: 2,
     },
   },
 ];
