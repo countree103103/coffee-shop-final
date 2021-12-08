@@ -44,15 +44,15 @@
             ><v-radio label="去冰" value="noIce"></v-radio
           ></v-radio-group>
         </div>
-        <div class="product-num">
-          <v-btn outlined fab x-small @click="num <= 0 ? null : num--"
-            ><v-icon>mdi-minus</v-icon></v-btn
-          >
-          {{ num }}
-          <v-btn outlined fab x-small @click="num++"
-            ><v-icon>mdi-plus</v-icon></v-btn
-          >
-        </div>
+      </div>
+      <div class="product-num" v-show="enlarge">
+        <v-btn outlined fab x-small @click="num <= 0 ? null : num--"
+          ><v-icon>mdi-minus</v-icon></v-btn
+        >
+        {{ num }}
+        <v-btn outlined fab x-small @click="num++"
+          ><v-icon>mdi-plus</v-icon></v-btn
+        >
       </div>
     </div>
   </li>
@@ -138,6 +138,9 @@ export default {
     top: 60px;
     bottom: 0;
     width: 90% !important;
+    @media screen and (min-width: 640px) {
+      width: 640px !important;
+    }
     height: 88% !important;
     border-radius: 10px !important;
     z-index: 1001;
@@ -159,12 +162,14 @@ export default {
   }
   position: relative;
   display: block;
-  width: 30%;
+  // width: 30%;
+  margin: 20px;
+  width: 360px;
   min-width: 280px;
   background-color: white;
   box-shadow: 0 5px 20px 5px rgba($color: #000000, $alpha: 0.1);
   height: 300px;
-  margin-top: 30px;
+  // margin-top: 30px;
   border-radius: 5%;
   overflow: hidden;
   transition: all 0.2s;
@@ -205,9 +210,16 @@ export default {
 .product-option {
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
   // justify-content: space-around;
   overflow-y: scroll;
-  margin-top: 20px;
+  // margin-top: 20px;
+  & > div {
+    margin-right: 20px;
+    padding: 1%;
+    border-radius: 14px;
+    border: 1px dashed black;
+  }
   * {
     white-space: nowrap;
   }
