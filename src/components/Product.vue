@@ -27,12 +27,57 @@
         添加到购物车
       </p>
       <div class="product-option" v-show="enlarge">
-        <div class="product-option--sweetness">
+        <div>
           <span>甜度</span
           ><v-radio-group v-model="sweetness" row
             ><v-radio label="无糖" value="no"></v-radio
             ><v-radio label="半糖" value="half"></v-radio
             ><v-radio label="全糖" value="full"></v-radio
+          ></v-radio-group>
+        </div>
+        <div>
+          <span>温度</span>
+          <v-radio-group v-model="temp" row
+            ><v-radio label="热" value="warm"></v-radio
+            ><v-radio label="正常冰" value="ice"></v-radio
+            ><v-radio label="少冰" value="lessIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+            ><v-radio label="正常冰" value="ice"></v-radio
+            ><v-radio label="少冰" value="lessIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+          ></v-radio-group>
+        </div>
+        <div>
+          <span>温度</span>
+          <v-radio-group v-model="temp" row
+            ><v-radio label="热" value="warm"></v-radio
+            ><v-radio label="正常冰" value="ice"></v-radio
+            ><v-radio label="少冰" value="lessIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+          ></v-radio-group>
+        </div>
+        <div>
+          <span>温度</span>
+          <v-radio-group v-model="temp" row
+            ><v-radio label="热" value="warm"></v-radio
+            ><v-radio label="正常冰" value="ice"></v-radio
+            ><v-radio label="少冰" value="lessIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
+          ></v-radio-group>
+        </div>
+        <div>
+          <span>温度</span>
+          <v-radio-group v-model="temp" row
+            ><v-radio label="热" value="warm"></v-radio
+            ><v-radio label="正常冰" value="ice"></v-radio
+            ><v-radio label="少冰" value="lessIce"></v-radio
+            ><v-radio label="去冰" value="noIce"></v-radio
           ></v-radio-group>
         </div>
         <div>
@@ -159,6 +204,10 @@ export default {
   }
   .product-card {
     padding: 12px;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-around;
+    // // height: 80%;
   }
   position: relative;
   display: block;
@@ -208,17 +257,25 @@ export default {
   text-align: right;
 }
 .product-option {
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  // justify-content: space-around;
-  overflow-y: scroll;
+  // display: flex;
+  // flex-direction: row;
   // margin-top: 20px;
+  // justify-content: space-around;
+  // overflow-x: scroll;
+  // overflow-y: hidden;
+  overflow-y: scroll;
+  // height: auto;
+  // height: 27vh;
+  height: 25vh;
+  // margin-top: 20px;
+  border: 1px dashed black;
+  border-radius: 14px;
+  padding: 15px;
   & > div {
     margin-right: 20px;
     padding: 1%;
     border-radius: 14px;
-    border: 1px dashed black;
+    // border: 1px dashed black;
   }
   * {
     white-space: nowrap;

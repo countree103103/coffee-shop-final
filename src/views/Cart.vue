@@ -49,10 +49,24 @@ export default {
 #cart {
   background-color: var(--bgColor);
   h1 {
+    &::after {
+      content: "";
+      display: block;
+      height: 3px;
+      width: 50%;
+      // bottom: -10px;
+      position: absolute;
+      background-color: var(--primary);
+    }
+    color: var(--primary);
+    align-self: flex-start;
+    margin: 3vh 0 5vh 13%;
+    font-size: 2rem;
+    // margin-left: 13%;
+    // margin-bottom: 20px;
     @media screen and (max-width: 500px) {
       align-self: flex-start;
-      margin-left: 20px;
-      margin-bottom: 10px;
+      margin: 20px 0 10px 20px;
     }
   }
   .cart-list {
