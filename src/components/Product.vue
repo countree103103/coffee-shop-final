@@ -143,9 +143,12 @@ export default {
 </script>
 <style lang="scss">
 :root {
-  --product-margin: 20px;
+  --product-margin: 12px;
 }
 .product-item {
+  @media screen and (min-width: 360px) {
+    width: 360px !important;
+  }
   position: relative;
   display: block;
   width: 30%;
@@ -153,7 +156,7 @@ export default {
   background-color: white;
   box-shadow: 0 5px 20px 5px rgba($color: #000000, $alpha: 0.1);
   height: 300px;
-  margin-top: 30px;
+  margin: 20px;
   border-radius: 5%;
   overflow: hidden;
   transition: all 0.2s;
@@ -164,11 +167,12 @@ export default {
     "img img img img"
     "img img img img"
     "img img img img"
-    "name . price price"
+    "name . . ."
     ". . price price"
-    "detail . . .";
+    ". . price price"
+    "detail detail . .";
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 4fr 2fr 2fr 2fr 1fr 1fr 1fr;
   height: 100%;
   width: 100%;
   .product-img {
@@ -191,9 +195,12 @@ export default {
     color: var(--primary);
   }
   .product-detail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    margin-left: var(--product-margin);
     bottom: 5%;
+    margin-left: var(--product-margin);
     cursor: pointer;
     border: 1.5px solid black;
     padding: 4px;
@@ -206,7 +213,7 @@ export default {
   .product-price {
     grid-area: price;
     margin-right: var(--product-margin);
-    margin-top: var(--product-margin);
+    // margin-top: var(--product-margin);
     .product-price--now {
       text-align: right;
       font-size: 1.5rem;
