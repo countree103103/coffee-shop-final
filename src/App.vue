@@ -99,7 +99,7 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  // font-family: sans-serif;
   z-index: 1;
 }
 :root {
