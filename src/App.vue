@@ -70,6 +70,8 @@
         <!-- </keep-alive> -->
       </transition>
     </div>
+    <!-- <footer>广州航海学院电商18121陈周煜版权所有</footer> -->
+    <footer>版权所有</footer>
   </div>
 </template>
 
@@ -104,6 +106,12 @@ export default {
   --primary: #512c1d;
   --bgColor: rgba(81, 44, 29, 0.3);
   --radius: 5%;
+}
+footer {
+  text-align: center;
+  background-color: var(--primary);
+  color: white;
+  height: 3rem;
 }
 #cart-num {
   position: absolute;

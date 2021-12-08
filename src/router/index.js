@@ -24,7 +24,7 @@ const routes = [
   {
     path: "/cart",
     name: "Cart",
-    component: null,
+    component: () => import("../views/Cart.vue"),
     meta: {
       index: 3,
     },
