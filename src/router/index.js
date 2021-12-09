@@ -30,6 +30,14 @@ const routes = [
     // },
   },
   {
+    path: "/order-detail",
+    name: "OrderDetail",
+    component: () => import("../views/OrderDetail.vue"),
+    // meta: {
+    //   index: 4,
+    // },
+  },
+  {
     path: "/cart",
     name: "Cart",
     component: () => import("../views/Cart.vue"),

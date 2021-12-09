@@ -1,7 +1,7 @@
 <template>
-  <div id="nav">
+  <div id="app">
     <!-- <v-app-bar app color="primary" dark> </v-app-bar> -->
-    <nav>
+    <nav id="navbar">
       <ul>
         <li class="nav--item-left">
           <router-link to="/">首页</router-link>
@@ -119,7 +119,7 @@ footer {
   right: 0;
   font-size: 0.5rem;
 }
-nav {
+nav#navbar {
   ul {
     padding: 0 !important;
     display: grid;
