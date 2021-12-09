@@ -1,6 +1,8 @@
 <template>
   <li :class="{ 'product-item': true, enlarge: enlarge }">
-    <v-btn
+    
+    <div class="product-card">
+      <v-btn
       outlined
       fab
       x-small
@@ -9,7 +11,6 @@
       class="product-detail--close"
       ><v-icon large fab outlined>mdi-close</v-icon></v-btn
     >
-    <div class="product-card">
       <div class="product-img"><img :src="imgSrc" /></div>
       <h2 class="product-name">{{ productName }}</h2>
       <div class="product-price">
@@ -21,6 +22,7 @@
       <p class="product-detail" @click="enlarge = !enlarge" v-show="!enlarge">
         查看详情
       </p>
+      <p class="product-des">这是一杯暖uan的拿铁~</p>
       <p
         class="product-detail--addtocart"
         v-show="enlarge"
@@ -149,6 +151,9 @@ export default {
   @media screen and (min-width: 360px) {
     width: 360px !important;
   }
+  &:hover{
+    transform: scale(1.02);
+  }
   position: relative;
   display: block;
   width: 30%;
@@ -223,6 +228,83 @@ export default {
       text-decoration: line-through;
       text-align: right;
     }
+  }
+  .product-des{
+    display: none;
+  }
+}
+
+.product-item.enlarge{
+
+  @media screen and (min-width: 360px) {
+    width: 360px !important;
+  }
+  &:hover{
+    transform: none;
+  }
+  position: relative;
+  display: block;
+  width: 30%;
+  min-width: 280px;
+  background-color: white;
+  box-shadow: 0 5px 20px 5px rgba($color: #000000, $alpha: 0.1);
+  // height: 300px;
+  height: 600px;
+  margin: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.2s;
+
+    .product-card{
+      display: grid;
+      grid-template-areas:
+      "close . . ."
+      "name . price price"
+      "des des des des"
+      "opt opt opt opt"
+      "add . num num";
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 2fr 3fr 300px 1fr;
+      height: 100%;
+      width: 100%;
+      .product-name{
+        grid-area: name;
+      }
+      .product-detail--close{
+        grid-area: close;
+      }
+      .product-des{
+        grid-area: des;
+        display: block;
+        padding: 12px;
+      }
+      .product-option{
+        grid-area: opt;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        margin-bottom: 50px;
+        padding: 12px;
+      }
+      .product-detail--addtocart{
+        grid-area: add;
+        margin-left: var(--product-margin);
+        position: absolute;
+        bottom: 5%;
+        border: 1px black solid;
+        padding: 4px;
+      }
+      .product-num{
+        grid-area: num;
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+      }
+      .product-img{
+        display: none;
+      }
+      .product-price{
+        grid-area: price;
+      }
   }
 }
 </style>
