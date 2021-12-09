@@ -1,16 +1,15 @@
 <template>
   <li :class="{ 'product-item': true, enlarge: enlarge }">
-    
     <div class="product-card">
       <v-btn
-      outlined
-      fab
-      x-small
-      v-show="enlarge"
-      @click="enlarge = false"
-      class="product-detail--close"
-      ><v-icon large fab outlined>mdi-close</v-icon></v-btn
-    >
+        outlined
+        fab
+        x-small
+        v-show="enlarge"
+        @click="enlarge = false"
+        class="product-detail--close"
+        ><v-icon large fab outlined>mdi-close</v-icon></v-btn
+      >
       <div class="product-img"><img :src="imgSrc" /></div>
       <h2 class="product-name">{{ productName }}</h2>
       <div class="product-price">
@@ -22,14 +21,16 @@
       <p class="product-detail" @click="enlarge = !enlarge" v-show="!enlarge">
         查看详情
       </p>
-      <p class="product-des">这是一杯暖uan的拿铁~</p>
-      <p
+      <p class="product-des">
+        这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~
+      </p>
+      <div
         class="product-detail--addtocart"
         v-show="enlarge"
         @click="addToCart()"
       >
-        加入购物车
-      </p>
+        <p>加入购物车</p>
+      </div>
       <div class="product-option" v-show="enlarge">
         <div>
           <span>甜度</span
@@ -95,13 +96,15 @@
         </div>
       </div>
       <div class="product-num" v-show="enlarge">
-        <v-btn outlined fab x-small @click="num <= 0 ? null : num--"
-          ><v-icon>mdi-minus</v-icon></v-btn
-        >
-        {{ num }}
-        <v-btn outlined fab x-small @click="num++"
-          ><v-icon>mdi-plus</v-icon></v-btn
-        >
+        <div>
+          <v-btn outlined fab x-small @click="num <= 0 ? null : num--"
+            ><v-icon>mdi-minus</v-icon></v-btn
+          >
+          {{ num }}
+          <v-btn outlined fab x-small @click="num++"
+            ><v-icon>mdi-plus</v-icon></v-btn
+          >
+        </div>
       </div>
     </div>
   </li>
@@ -151,7 +154,7 @@ export default {
   @media screen and (min-width: 360px) {
     width: 360px !important;
   }
-  &:hover{
+  &:hover {
     transform: scale(1.02);
   }
   position: relative;
@@ -229,20 +232,19 @@ export default {
       text-align: right;
     }
   }
-  .product-des{
+  .product-des {
     display: none;
   }
 }
 
-.product-item.enlarge{
-
+.product-item.enlarge {
   @media screen and (min-width: 360px) {
     width: 360px !important;
   }
   @media screen and (max-width: 500px) {
     height: 500px;
   }
-  &:hover{
+  &:hover {
     transform: none;
   }
   position: relative;
@@ -258,70 +260,89 @@ export default {
   overflow: hidden;
   transition: all 0.2s;
 
-    .product-card{
-      display: grid;
-      grid-template-areas:
+  .product-card {
+    display: grid;
+    grid-template-areas:
       "close . . ."
       "img img img img"
       "name . price price"
       "des des des des"
       "opt opt opt opt"
-      "add . num num";
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 0fr 6fr 2fr 3fr 200px 1fr;
-      height: 100%;
-      width: 100%;
-      .product-name{
-        grid-area: name;
-      }
-      .product-detail--close{
-        grid-area: close;
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        z-index: 1000;
-      }
-      .product-des{
-        grid-area: des;
-        display: block;
-        padding: 12px;
-      }
-      .product-option{
-        grid-area: opt;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        margin-bottom: 50px;
-        padding: 12px;
-      }
-      .product-detail--addtocart{
-        grid-area: add;
-        margin-left: var(--product-margin);
-        position: absolute;
-        bottom: 5%;
+      "add add num num";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0fr 6fr 2fr 2fr 5fr 2fr;
+    height: 100%;
+    width: 100%;
+    .product-name {
+      grid-area: name;
+      margin-left: var(--product-margin);
+    }
+    .product-detail--close {
+      grid-area: close;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 1000;
+    }
+    .product-des {
+      grid-area: des;
+      display: block;
+      padding: 0 12px;
+      font-size: 0.6rem;
+      color: gray;
+      text-indent: 1em;
+      line-height: 2em;
+      // text-overflow: ellipsis;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .product-option {
+      grid-area: opt;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: 10px 10px 0 10px;
+      padding: 12px;
+      border: 1px black dashed;
+      border-radius: 12px;
+    }
+    .product-detail--addtocart {
+      grid-area: add;
+      position: relative;
+      & > p {
         border: 1px black solid;
-        padding: 4px;
-      }
-      .product-num{
-        grid-area: num;
         position: absolute;
-        bottom: 5%;
-        right: 5%;
+        padding: 4px;
+        bottom: 17%;
+        left: 12%;
       }
-      // .product-img{
-      //   display: none;
-      // }
-      .product-img {
-        grid-area: img;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+    }
+    .product-num {
+      grid-area: num;
+      // position: absolute;
+      // bottom: 5%;
+      // right: 5%;
+      position: relative;
+      & > div {
+        position: absolute;
+        bottom: 14%;
+        right: 7%;
       }
-  }
-      .product-price{
-        grid-area: price;
-        margin-top: 12px;
+    }
+    // .product-img{
+    //   display: none;
+    // }
+    .product-img {
+      grid-area: img;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
+    }
+    .product-price {
+      grid-area: price;
+      margin-top: var(--product-margin);
+    }
   }
 }
 </style>
