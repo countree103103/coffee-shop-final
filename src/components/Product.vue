@@ -1,11 +1,14 @@
 <template>
-  <li :class="{ 'product-item': true, enlarge: enlarge }">
+  <li
+    :class="{ 'product-item': true, enlarge: enlarge }"
+    @click="enlarge ? null : toggleEnlarge()"
+  >
     <v-btn
       outlined
       fab
       x-small
       v-show="enlarge"
-      @click="enlarge = false"
+      @click="toggleEnlarge"
       class="product-detail--close"
       ><v-icon large fab outlined>mdi-close</v-icon></v-btn
     >
@@ -135,6 +138,10 @@ export default {
     },
     addToCart() {
       console.log(`${this.productName}-${this.sweetness}-${this.temp}`);
+    },
+    toggleEnlarge() {
+      this.enlarge = !this.enlarge;
+      event.stopPropagation();
     },
   },
 };
