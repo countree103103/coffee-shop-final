@@ -249,7 +249,7 @@ export default {
   background-color: white;
   box-shadow: 0 5px 20px 5px rgba($color: #000000, $alpha: 0.1);
   // height: 300px;
-  height: 600px;
+  height: 500px;
   margin: 20px;
   border-radius: 15px;
   overflow: hidden;
