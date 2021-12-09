@@ -28,7 +28,7 @@
         v-show="enlarge"
         @click="addToCart()"
       >
-        添加到购物车
+        加入购物车
       </p>
       <div class="product-option" v-show="enlarge">
         <div>
@@ -239,6 +239,9 @@ export default {
   @media screen and (min-width: 360px) {
     width: 360px !important;
   }
+  @media screen and (max-width: 500px) {
+    height: 500px;
+  }
   &:hover{
     transform: none;
   }
@@ -249,7 +252,7 @@ export default {
   background-color: white;
   box-shadow: 0 5px 20px 5px rgba($color: #000000, $alpha: 0.1);
   // height: 300px;
-  height: 500px;
+  height: 550px;
   margin: 20px;
   border-radius: 15px;
   overflow: hidden;
@@ -259,12 +262,13 @@ export default {
       display: grid;
       grid-template-areas:
       "close . . ."
+      "img img img img"
       "name . price price"
       "des des des des"
       "opt opt opt opt"
       "add . num num";
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr 2fr 3fr 300px 1fr;
+      grid-template-rows: 0fr 6fr 2fr 3fr 200px 1fr;
       height: 100%;
       width: 100%;
       .product-name{
@@ -272,6 +276,10 @@ export default {
       }
       .product-detail--close{
         grid-area: close;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        z-index: 1000;
       }
       .product-des{
         grid-area: des;
@@ -299,11 +307,20 @@ export default {
         bottom: 5%;
         right: 5%;
       }
-      .product-img{
-        display: none;
+      // .product-img{
+      //   display: none;
+      // }
+      .product-img {
+        grid-area: img;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
       }
+  }
       .product-price{
         grid-area: price;
+        margin-top: 12px;
       }
   }
 }
