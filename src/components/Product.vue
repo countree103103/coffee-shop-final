@@ -247,17 +247,20 @@ export default {
   &:hover {
     transform: none;
   }
-  position: relative;
-  display: block;
-  width: 30%;
-  min-width: 280px;
-  background-color: white;
-  box-shadow: 0 5px 20px 5px rgba($color: #000000, $alpha: 0.1);
-  // height: 300px;
-  height: 550px;
-  margin: 20px;
-  border-radius: 15px;
-  overflow: hidden;
+  position: fixed !important;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  width: 90% !important;
+  @media screen and (min-width: 640px) {
+    width: 640px !important;
+  }
+  height: 88% !important;
+  border-radius: 10px !important;
+  z-index: 1001;
+  box-shadow: 0 0 1000px 1000px rgba($color: #000000, $alpha: 0.8);
   transition: all 0.2s;
 
   .product-card {
@@ -270,7 +273,7 @@ export default {
       "opt opt opt opt"
       "add add num num";
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0fr 6fr 2fr 2fr 5fr 2fr;
+    grid-template-rows: 0fr 31vh 2fr 2fr 5fr 2fr;
     height: 100%;
     width: 100%;
     .product-name {
