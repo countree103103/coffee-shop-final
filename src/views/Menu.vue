@@ -1,5 +1,5 @@
 <template>
-  <div class="product-list-wrapper">
+  <div class="product-list-wrapper" @click.stop="closeProduct">
     <h1>精选咖啡</h1>
     <ul class="product-list">
       <product
@@ -83,8 +83,9 @@ export default {
       this.$refs.products.forEach((i) => {
         i.close();
       });
-      e.preventDefault();
-      e.stopPropagation();
+    },
+    test(event) {
+      console.log(event);
     },
   },
 };

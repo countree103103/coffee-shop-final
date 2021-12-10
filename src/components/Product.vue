@@ -1,7 +1,7 @@
 <template>
   <li
     :class="{ 'product-item': true, enlarge: enlarge }"
-    @click="enlarge ? null : toggleEnlarge()"
+    @click.stop="enlarge ? null : toggleEnlarge(true)"
   >
     <div class="product-card">
       <v-btn
@@ -9,7 +9,7 @@
         fab
         x-small
         v-show="enlarge"
-        @click="enlarge = false"
+        @click.stop="!enlarge ? null : toggleEnlarge(false)"
         class="product-detail--close"
         ><v-icon large fab outlined>mdi-close</v-icon></v-btn
       >
@@ -146,9 +146,10 @@ export default {
     addToCart() {
       console.log(`${this.productName}-${this.sweetness}-${this.temp}`);
     },
-    toggleEnlarge() {
-      this.enlarge = !this.enlarge;
-      event.stopPropagation();
+    toggleEnlarge(setTo) {
+      setTo !== undefined
+        ? (this.enlarge = setTo)
+        : (this.enlarge = !this.enlarge);
     },
   },
 };
