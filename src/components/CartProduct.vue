@@ -3,7 +3,7 @@
     <div class="cart-product--img">
       <img :src="imgSrc" alt="" />
     </div>
-    <div class="cart-product--name"><h5>卡布奇诺</h5></div>
+    <div class="cart-product--name"><h5 class="font-bold">卡布奇诺</h5></div>
     <div class="cart-product--option">热/去冰/热/去冰/热</div>
     <div class="cart-product--price">
       666￥ X {{ num }} = <span> {{ 666 * num }}￥</span>

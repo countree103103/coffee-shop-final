@@ -3,7 +3,7 @@
     <div class="auth-wrapper">
       <div class="login-wrapper">
         <div v-if="state == 1">
-          <h1>已有帐号?</h1>
+          <h1 class="form-header">已有帐号?</h1>
           <v-form ref="loginForm">
             <v-text-field
               name="user_name"
@@ -29,14 +29,14 @@
           </v-form>
         </div>
         <div v-else>
-          <h1>已有账号?</h1>
+          <h1 class="form-header">已有账号?</h1>
           <p>点击下面按钮登入!</p>
           <v-btn outlined @click="stateChange(1)">登入</v-btn>
         </div>
       </div>
       <div class="register-wrapper">
         <div v-if="state == 2">
-          <h1>未有帐号?</h1>
+          <h1 class="form-header">未有帐号?</h1>
           <v-form ref="registerForm">
             <v-text-field
               name="user_name"
@@ -74,19 +74,13 @@
           </v-form>
         </div>
         <div v-else>
-          <h1>没有账号?</h1>
+          <h1 class="form-header">没有账号?</h1>
           <p>点击下面按钮成为我们的一员!</p>
           <v-btn outlined @click="stateChange(2)">注册</v-btn>
         </div>
       </div>
       <div :class="{ 'auth--indicator': true, register: state == 2 }"></div>
     </div>
-    <v-snackbar v-model="showMsg" timeout="2000" color="#512c1d">
-      {{ msg }}
-      <template v-slot:action="{}">
-        <v-btn @click.native="showMsg = false" text>关闭</v-btn>
-      </template>
-    </v-snackbar>
   </div>
 </template>
 
@@ -94,6 +88,7 @@
 import axios from "axios";
 import gsap from "gsap/all";
 import { SERVER_ADDRESS } from "../config";
+import { showMsg } from "../utils";
 export default {
   name: "Auth",
   data() {
@@ -154,17 +149,14 @@ export default {
               this.$store.state.user = userInfo;
               this.$router.push("/user");
             } else {
-              this.showMsg = true;
-              this.msg = "获取用户信息失败！请稍后再试";
+              showMsg.call(this, "获取用户信息失败！请稍后再试");
             }
           } else {
-            this.showMsg = true;
-            this.msg = "登陆失败!请检查用户名或密码";
+            showMsg.call(this, "登陆失败!请检查用户名或密码");
           }
         } catch (error) {
           this.form.login.loading = false;
-          this.showMsg = true;
-          this.msg = "登录失败！请稍后再试";
+          showMsg.call(this, "登录失败！请稍后再试");
         }
         this.form.login.loading = false;
       }
@@ -177,19 +169,16 @@ export default {
           let res = await axios.post(`/coffee/user/register`, registerForm);
           console.log(res.data);
           if (!res.data) {
-            this.showMsg = true;
-            this.msg = "用户已存在！";
+            showMsg.call(this, "用户已存在！");
             this.form.register.loading = false;
           } else {
-            this.showMsg = true;
-            this.msg = "注册成功!请登录";
+            showMsg.call(this, "注册成功!请登录");
             this.state = 1;
             this.form.register.loading = false;
           }
         } catch (error) {
           console.log(error);
-          this.showMsg = true;
-          this.msg = "提交失败，服务器错误！";
+          showMsg.call(this, "提交失败，服务器错误！");
           this.form.register.loading = false;
         }
       }
@@ -273,5 +262,10 @@ export default {
       top: 50%;
     }
   }
+}
+
+.form-header {
+  @apply text-2xl font-bold;
+  color: var(--primary);
 }
 </style>

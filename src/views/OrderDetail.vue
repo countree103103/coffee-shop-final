@@ -1,7 +1,7 @@
 <template>
   <div id="order-detail">
     <v-container>
-      <v-row><h1>订单详情</h1></v-row>
+      <v-row><h1 class="text-xl font-bold">订单详情</h1></v-row>
       <v-row><h5>感谢您对本咖啡店的信任，欢迎再次光临~</h5></v-row>
       <v-row style="border-top: 1px black dashed"
         ><v-col cols="12" lg="7"

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <v-app>
     <!-- <v-app-bar app color="primary" dark> </v-app-bar> -->
     <nav id="navbar">
       <ul>
@@ -72,7 +72,17 @@
     </div>
     <!-- <footer>广州航海学院电商18121陈周煜版权所有</footer> -->
     <footer>版权所有</footer>
-  </div>
+    <v-snackbar
+      v-model="$store.state.snackbar.show"
+      timeout="2000"
+      color="#512c1d"
+    >
+      {{ $store.state.snackbar.msg }}
+      <template v-slot:action="{}">
+        <v-btn @click.native="showMsg = false" text>关闭</v-btn>
+      </template>
+    </v-snackbar>
+  </v-app>
 </template>
 
 <script>
@@ -224,21 +234,8 @@ nav#navbar {
   }
 }
 
-// .slide-left-enter,
-// .slide-left-leave {
-//   transform: translateX(-100%);
-// }
-
-// .slide-left-leave-to {
-//   transform: translateX(-100%);
-// }
-
-// .slide-right-enter,
-// .slide-right-leave {
-//   transform: translateX(100%);
-// }
-
-// .slide-right-leave-to {
-//   transform: translateX(100%);
-// }
+//覆盖vuetify样式
+.v-application p {
+  margin-bottom: 0 !important;
+}
 </style>

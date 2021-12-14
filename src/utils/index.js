@@ -23,4 +23,9 @@ function reader(file, options) {
   });
 }
 
-export { reader };
+function showMsg(msg) {
+  this.$store.state.snackbar.show = true;
+  this.$store.state.snackbar.msg = msg;
+}
+
+export { reader, showMsg };

@@ -1,6 +1,6 @@
 <template>
   <div id="cart">
-    <h1>购物车</h1>
+    <h1 class="text-2xl font-bold">购物车</h1>
     <ul class="cart-list">
       <cart-product imgName="latte.jpeg"></cart-product
       ><cart-product imgName="asd.jpeg"></cart-product
@@ -61,9 +61,6 @@ export default {
     color: var(--primary);
     align-self: flex-start;
     margin: 3vh 0 5vh 13%;
-    font-size: 2rem;
-    // margin-left: 13%;
-    // margin-bottom: 20px;
     @media screen and (max-width: 500px) {
       align-self: flex-start;
       margin: 20px 0 10px 20px;

@@ -5,14 +5,19 @@ import { SERVER_ADDRESS } from "../config";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: { transitionName: "", user: null },
+  state: {
+    transitionName: "",
+    user: null,
+    snackbar: {
+      show: false,
+      msg: "",
+    },
+  },
   mutations: {
     changeTransition(state, transitionName) {
       state.transitionName = transitionName;
     },
   },
-  actions: {
-    
-  },
+  actions: {},
   modules: {},
 });
