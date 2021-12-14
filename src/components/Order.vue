@@ -24,8 +24,8 @@
     </v-row>
     <v-row>
       <v-col>
-        <router-link to="/menu" style="text-decoration: none"
-          ><v-btn outlined small>再来一单</v-btn></router-link
+        <v-btn outlined small @click.stop="$router.push('/menu')"
+          >再来一单</v-btn
         ></v-col
       >
       <v-col><v-btn outlined small>去评价</v-btn></v-col>
