@@ -14,7 +14,7 @@
         ><v-icon large fab outlined>mdi-close</v-icon></v-btn
       >
       <div class="product-img"><img :src="imgSrc" /></div>
-      <h2 class="product-name font-bold text-xl">{{ productName }}</h2>
+      <h2 class="product-name font-bold text-2xl">{{ productName }}</h2>
       <div class="product-price">
         <p class="product-price--before" v-show="productBeforePrice">
           {{ productBeforePrice }}￥

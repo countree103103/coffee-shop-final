@@ -238,4 +238,8 @@ nav#navbar {
 .v-application p {
   margin-bottom: 0 !important;
 }
+.v-application ul,
+.v-application ol {
+  padding-left: 0 !important;
+}
 </style>
