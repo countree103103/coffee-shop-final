@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import "./plugins/axios";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
+import "tailwindcss/tailwind.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
