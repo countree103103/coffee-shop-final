@@ -25,9 +25,9 @@ const routes = [
     path: "/user",
     name: "User",
     component: () => import("../views/User.vue"),
-    // meta: {
-    //   index: 4,
-    // },
+    meta: {
+      index: 4,
+    },
   },
   {
     path: "/order-detail",

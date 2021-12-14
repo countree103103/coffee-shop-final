@@ -15,15 +15,32 @@
                 </v-row>
                 <v-container>
                   <v-form>
-                    <v-text-field label="用户名" value="chenzy"></v-text-field
-                    ><v-text-field label="性别" value="男"></v-text-field>
+                    <v-text-field
+                      label="用户名"
+                      :value="$store.state.user.user_name"
+                    ></v-text-field
+                    ><v-text-field
+                      label="性别"
+                      :value="$store.state.user.user_gender"
+                    ></v-text-field>
+                    <v-file-input v-model="head"></v-file-input>
+                    <v-img :src="mysrc"></v-img>
                   </v-form>
                 </v-container>
+                <v-row>
+                  <v-spacer></v-spacer>
+                  <v-col
+                    ><v-btn @click="logout" class="logout-btn" rounded
+                      >登出</v-btn
+                    ></v-col
+                  >
+                </v-row>
               </v-container>
 
               <v-card-text> </v-card-text>
-            </v-card></div
-        ></v-col>
+            </v-card>
+          </div>
+        </v-col>
         <v-col class="user-order"
           ><div>
             <v-card width="400">
@@ -44,13 +61,48 @@
 </template>
 
 <script>
+import axios from "axios";
 import Order from "../components/Order.vue";
+import { reader } from "../utils";
 export default {
   name: "User",
   data() {
     return {
       page: 1,
+      head: null,
+      mysrc: null,
     };
+  },
+  watch: {
+    async head() {
+      let r = await reader(this.head);
+      this.mysrc = r.result;
+    },
+  },
+  methods: {
+    async getImg() {
+      let respone = await fetch(
+        "https://5cb98fc0-78ed-4800-919b-3e8098877d72.bspapp.com/get"
+      );
+      let result = await respone.json();
+      console.log(result);
+      this.mysrc = result.data[4].img;
+    },
+    async logout() {
+      let result = await axios.post("/coffee/user/logout");
+      if (result.data) {
+        this.$store.state.user = null;
+        this.$router.push("/auth");
+      } else {
+        alert("登出失败!");
+      }
+    },
+  },
+  created() {
+    if (!this.$store.state.user) {
+      this.$router.push("/auth");
+    }
+    this.getImg();
   },
   components: { Order },
 };
@@ -59,5 +111,9 @@ export default {
 <style lang="scss">
 #user-view {
   background-color: var(--bgColor);
+}
+.logout-btn {
+  width: 80%;
+  margin-top: 5vh;
 }
 </style>
