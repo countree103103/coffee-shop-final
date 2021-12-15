@@ -79,7 +79,7 @@
     >
       {{ $store.state.snackbar.msg }}
       <template v-slot:action="{}">
-        <v-btn @click.native="showMsg = false" text>关闭</v-btn>
+        <v-btn @click.native="$store.state.snackbar.show" text>关闭</v-btn>
       </template>
     </v-snackbar>
   </v-app>
