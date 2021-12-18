@@ -1,42 +1,52 @@
 <template>
   <li class="cart-product">
     <div class="cart-product--img">
-      <img :src="imgSrc" alt="" />
+      <img :src="product.product_img" alt="" />
     </div>
-    <div class="cart-product--name"><h5 class="font-bold">卡布奇诺</h5></div>
-    <div class="cart-product--option">热/去冰/热/去冰/热</div>
+    <div class="cart-product--name">
+      <h5 class="font-bold">{{ product.product_name }}</h5>
+    </div>
+    <div class="cart-product--option">{{ c_opt }}</div>
     <div class="cart-product--price">
-      666￥ X {{ num }} = <span> {{ 666 * num }}￥</span>
+      {{ product.product_price_now }}￥ X {{ product.product_num }} =
+      <span> {{ product.product_price_now * product.product_num }}￥</span>
     </div>
-    <div class="cart-product--num">
+    <!-- <div class="cart-product--num">
       <v-btn outlined fab x-small @click="num <= 1 ? del() : num--"
         ><v-icon x-small>mdi-minus</v-icon></v-btn
       >
-      <span>{{ num }}</span>
+      <span>{{ product.product_num }}</span>
       <v-btn outlined fab x-small @click="num++"
         ><v-icon x-small>mdi-plus</v-icon></v-btn
       >
-    </div>
+    </div> -->
   </li>
 </template>
 
 <script>
 export default {
   name: "CartProduct",
-  props: ["imgName"],
+  props: ["product"],
   data() {
     return {
       num: 1,
     };
   },
+  computed: {
+    c_opt() {
+      let arr = [];
+      for (const i of this.product.product_opt) {
+        arr.push(i.value);
+      }
+      return arr.join(",");
+    },
+    imgSrc() {
+      return require(`../assets/${this.imgName}`);
+    },
+  },
   methods: {
     del() {
       // alert("删除");
-    },
-  },
-  computed: {
-    imgSrc() {
-      return require(`../assets/${this.imgName}`);
     },
   },
 };

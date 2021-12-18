@@ -142,7 +142,9 @@ export default {
           );
           console.log(res.data);
           if (res.data) {
-            let result = await axios.get(`/coffee/user/getUserInfo`);
+            let result = await axios.get(`/coffee/user/getUserInfo`, {
+              withCredentials: true,
+            });
             console.log(result);
             if (result.data) {
               let userInfo = result.data;
@@ -192,10 +194,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  @media screen and (max-width: 500px) {
-    height: 100%;
-  }
+  height: 100%;
+  // @media screen and (max-width: 500px) {
+  //   height: 100%;
+  // }
   background-color: var(--bgColor);
 }
 .auth-wrapper {
@@ -226,7 +228,7 @@ export default {
   .auth-wrapper {
     flex-direction: column;
     height: 650px;
-    margin-top: 10vh;
+    // margin-top: 10vh;
     margin-bottom: 10vh;
   }
   .login-wrapper {

@@ -3,21 +3,17 @@
     <v-row>
       <v-col>
         <ul>
-          <li>
-            <p class="order-item-name">美式咖啡</p>
-            <span class="order-item-option">热/无糖/加浓缩</span
-            ><span class="order-item-num">666$ X 1</span>
-          </li>
-          <li>
-            <p class="order-item-name">美式咖啡</p>
-            <span class="order-item-option">热/无糖/加浓缩</span
-            ><span class="order-item-num">666$ X 1</span>
-          </li>
-          <li>
-            <p class="order-item-name">美式咖啡</p>
-            <span class="order-item-option"
-              >热/无糖/加浓缩/无糖/加浓缩/无糖/加浓/加浓缩/无糖/加浓/加浓缩/无糖/加浓</span
-            ><span class="order-item-num">666$ X 1</span>
+          <li
+            v-for="(product, index) in JSON.parse(order.product_list)"
+            :key="index"
+          >
+            <p class="order-item-name">{{ product.product_name }}</p>
+            <span class="order-item-option">{{
+              getOpt(product.product_opt)
+            }}</span
+            ><span class="order-item-num"
+              >{{ product.product_price_now }} X {{ product.product_num }}</span
+            >
           </li>
         </ul>
       </v-col>
@@ -29,7 +25,13 @@
         ></v-col
       >
       <v-col><v-btn outlined small>去评价</v-btn></v-col>
-      <v-col class="order-total"><span>共3件商品，实付666￥</span></v-col>
+      <v-col class="order-total"
+        ><span
+          >共{{ order.product_num_total }}件商品，实付{{
+            order.order_sum
+          }}￥</span
+        ></v-col
+      >
     </v-row>
   </v-container>
 </template>
@@ -37,12 +39,24 @@
 <script>
 export default {
   name: "Order",
+  props: {
+    order: {
+      type: Array,
+    },
+  },
   data() {
     return {};
   },
   methods: {
     goToDetail() {
-      this.$router.push("/order-detail");
+      this.$router.push({ path: "/order-detail", query: { state: 1 } });
+    },
+    getOpt(opt) {
+      let arr = [];
+      for (const i of opt) {
+        arr.push(i.value);
+      }
+      return arr.join(",");
     },
   },
 };

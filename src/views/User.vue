@@ -31,6 +31,41 @@
                   </v-form>
                 </v-container>
                 <v-row>
+                  <v-col class="border m-4 border-gray-500 rounded-lg dash">
+                    <h1 class="mb-4 text-lg text-gray-500">地址簿</h1>
+                    <v-simple-table>
+                      <thead>
+                        <tr>
+                          <th>联系人</th>
+                          <th>手机</th>
+                          <th>地址</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(i, index) in user.address" :key="index">
+                          <td>{{ i.name }}</td>
+                          <td>{{ i.tel }}</td>
+                          <td>{{ i.address }}</td>
+                          <td>
+                            <v-btn
+                              color=""
+                              icon
+                              x-small
+                              @click="user.address.splice(index, 1)"
+                              ><v-icon>mdi-delete</v-icon></v-btn
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+
+                    <v-btn icon @click="addAddress"
+                      ><v-icon>mdi-plus</v-icon></v-btn
+                    >
+                  </v-col>
+                </v-row>
+                <v-row>
                   <v-col
                     ><v-btn class="logout-btn" rounded @click="update"
                       >更新用户数据</v-btn
@@ -53,9 +88,11 @@
             <v-card width="400">
               <v-card-title primary-title> 您的订单 </v-card-title>
               <v-container>
-                <Order></Order>
-                <Order></Order>
-                <Order></Order>
+                <Order
+                  v-for="(order, index) in orderList"
+                  :order="order"
+                  :key="index"
+                ></Order>
               </v-container>
               <v-pagination v-model="page" :length="3"></v-pagination>
             </v-card></div
@@ -79,7 +116,9 @@ export default {
       user: {
         user_name: null,
         user_gender: null,
+        address: [],
       },
+      orderList: [],
     };
   },
   watch: {
@@ -106,12 +145,26 @@ export default {
         alert("登出失败!");
       }
     },
+    addAddress() {
+      let name, tel, address;
+      let exp_tel =
+        /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+      (name = prompt("请输入姓名")) &&
+        (tel = prompt("请输入手机号码")) &&
+        exp_tel.test(tel) &&
+        (address = prompt("请输入地址"));
+      if (name && tel && address) {
+        console.log(name, tel, address);
+        this.user.address.push({ name, tel, address });
+      } else {
+        null;
+      }
+    },
     async update() {
       try {
-        let result = await axios.post(
-          "/coffee/user/updateUserInfo",
-          new FormData(this.$refs.userForm.$el)
-        );
+        let formData = new FormData(this.$refs.userForm.$el);
+        formData.append("address", JSON.stringify(this.user.address));
+        let result = await axios.post("/coffee/user/updateUserInfo", formData);
         if (result.data) {
           showMsg.call(this, "用户数据更新成功!");
           this.$store.state.user = result.data;
@@ -126,6 +179,19 @@ export default {
         showMsg.call(this, "服务器错误!请稍后再试");
       }
     },
+    async getOrderList() {
+      try {
+        let result = await axios.get("/coffee/order");
+        if (result.data) {
+          this.orderList = result.data;
+        } else {
+          showMsg.call(this, "获取订单列表失败!");
+        }
+      } catch (error) {
+        console.log(error);
+        showMsg.call(this, "服务器错误!");
+      }
+    },
   },
   created() {
     if (!this.$store.state.user) {
@@ -135,7 +201,7 @@ export default {
         this.user[key] = this.$store.state.user[key];
       }
     }
-    this.getImg();
+    this.getOrderList();
   },
   beforeRouteLeave(to, from, next) {
     // this.$forceUpdate();
@@ -148,6 +214,7 @@ export default {
 <style lang="scss">
 #user-view {
   background-color: var(--bgColor);
+  min-height: 100%;
 }
 .logout-btn {
   width: 100%;

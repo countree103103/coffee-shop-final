@@ -28,6 +28,7 @@ export default {
 <style lang="scss">
 #home {
   background-color: var(--bgColor);
+  height: 100%;
 }
 section {
   p {

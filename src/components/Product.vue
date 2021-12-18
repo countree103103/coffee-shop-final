@@ -2,6 +2,7 @@
   <li
     :class="{ 'product-item': true, enlarge: enlarge }"
     @click.stop="enlarge ? null : toggleEnlarge(true)"
+    v-if="product_status == '在架'"
   >
     <div class="product-card">
       <v-btn
@@ -13,19 +14,19 @@
         class="product-detail--close"
         ><v-icon large fab outlined>mdi-close</v-icon></v-btn
       >
-      <div class="product-img"><img :src="imgSrc" /></div>
-      <h2 class="product-name font-bold text-2xl">{{ productName }}</h2>
+      <div class="product-img"><img :src="product_img" /></div>
+      <h2 class="product-name font-bold text-2xl">{{ product_name }}</h2>
       <div class="product-price">
-        <p class="product-price--before" v-show="productBeforePrice">
-          {{ productBeforePrice }}￥
+        <p class="product-price--before" v-show="product_price_before">
+          {{ product_price_before }}￥
         </p>
-        <p class="product-price--now">{{ productPrice }}￥</p>
+        <p class="product-price--now">{{ product_price_now }}￥</p>
       </div>
       <p class="product-detail" @click="enlarge = !enlarge" v-show="!enlarge">
         查看详情
       </p>
       <p class="product-des">
-        这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~这是一杯暖的拿铁~
+        {{ product_des }}
       </p>
       <div
         class="product-detail--addtocart"
@@ -35,72 +36,21 @@
         <p>加入购物车</p>
       </div>
       <div class="product-option" v-show="enlarge">
-        <div>
-          <span>甜度</span
-          ><v-radio-group v-model="sweetness" row
-            ><v-radio label="无糖" value="no"></v-radio
-            ><v-radio label="半糖" value="half"></v-radio
-            ><v-radio label="全糖" value="full"></v-radio
-          ></v-radio-group>
-        </div>
-        <div>
-          <span>温度</span>
-          <v-radio-group v-model="temp" row
-            ><v-radio label="热" value="warm"></v-radio
-            ><v-radio label="正常冰" value="ice"></v-radio
-            ><v-radio label="少冰" value="lessIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-            ><v-radio label="正常冰" value="ice"></v-radio
-            ><v-radio label="少冰" value="lessIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-          ></v-radio-group>
-        </div>
-        <div>
-          <span>温度</span>
-          <v-radio-group v-model="temp" row
-            ><v-radio label="热" value="warm"></v-radio
-            ><v-radio label="正常冰" value="ice"></v-radio
-            ><v-radio label="少冰" value="lessIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-          ></v-radio-group>
-        </div>
-        <div>
-          <span>温度</span>
-          <v-radio-group v-model="temp" row
-            ><v-radio label="热" value="warm"></v-radio
-            ><v-radio label="正常冰" value="ice"></v-radio
-            ><v-radio label="少冰" value="lessIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-          ></v-radio-group>
-        </div>
-        <div>
-          <span>温度</span>
-          <v-radio-group v-model="temp" row
-            ><v-radio label="热" value="warm"></v-radio
-            ><v-radio label="正常冰" value="ice"></v-radio
-            ><v-radio label="少冰" value="lessIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-          ></v-radio-group>
-        </div>
-        <div>
-          <span>温度</span>
-          <v-radio-group v-model="temp" row
-            ><v-radio label="热" value="warm"></v-radio
-            ><v-radio label="正常冰" value="ice"></v-radio
-            ><v-radio label="少冰" value="lessIce"></v-radio
-            ><v-radio label="去冰" value="noIce"></v-radio
-          ></v-radio-group>
+        <div v-for="(opt, index) in product.product_opt" :key="index">
+          <span>{{ opt.title }}</span
+          ><v-radio-group v-model="opt.value" row
+            ><v-radio
+              v-for="(i, index2) in opt.attr"
+              :label="i"
+              :value="i"
+              :key="index2"
+            ></v-radio>
+          </v-radio-group>
         </div>
       </div>
       <div class="product-num" v-show="enlarge">
         <div>
-          <v-btn outlined fab x-small @click="num <= 0 ? null : num--"
+          <v-btn outlined fab x-small @click="num <= 1 ? null : num--"
             ><v-icon>mdi-minus</v-icon></v-btn
           >
           {{ num }}
@@ -114,37 +64,98 @@
 </template>
 
 <script>
+import { db } from "../service/CartService";
+import { showMsg } from "../utils";
+
 export default {
   props: [
-    "imgName",
-    "productName",
-    "productDetail",
-    "productPrice",
-    "productBeforePrice",
+    "product_img",
+    "product_name",
+    "product_price_now",
+    "product_price_before",
+    "product_des",
+    "product_opt",
+    "product_status",
   ],
   data() {
     return {
-      num: 0,
+      num: 1,
       enlarge: false,
-      sweetness: null,
-      temp: null,
-      ice: null,
+      product: {
+        product_opt: [],
+      },
     };
+  },
+  watch: {
+    product_opt: function (newVal) {
+      console.log(newVal);
+      this.product.product_opt = this.parseProductOpt(newVal);
+    },
   },
   computed: {
     imgSrc() {
-      return require(`../assets/${this.imgName}`);
+      return require(`../assets/${this.product_img}`);
     },
   },
+  created() {},
+  mounted() {
+    setTimeout(() => {}, 2000);
+    console.log(this.product_opt);
+  },
   methods: {
+    parseProductOpt(opt) {
+      let new_opt_arr = [];
+      for (const i of opt) {
+        let new_opt = {};
+        new_opt["title"] = i.title;
+        new_opt["attr"] = i.attr.split(",");
+        new_opt["value"] = "";
+        new_opt_arr.push(new_opt);
+      }
+      return new_opt_arr;
+    },
     detail(e) {
       console.log(e);
     },
     close() {
       this.enlarge = false;
     },
+    checkOpt(opt) {
+      for (const i of opt) {
+        if (i.value) {
+          continue;
+        } else {
+          return false;
+        }
+      }
+      return true;
+    },
     addToCart() {
-      console.log(`${this.productName}-${this.sweetness}-${this.temp}`);
+      if (this.checkOpt(this.product.product_opt)) {
+        null;
+      } else {
+        showMsg.call(this, "未选择所有产品选项!");
+        return false;
+      }
+      let obj = {
+        product_name: this.product_name,
+        product_num: this.num,
+        product_opt: this.product.product_opt,
+        product_img: this.product_img,
+        product_price_now: this.product_price_now,
+      };
+      console.log(obj);
+      let request = db
+        .transaction("Cart", "readwrite")
+        .objectStore("Cart")
+        .add(obj);
+      request.onsuccess = (event) => {
+        this.toggleEnlarge();
+        showMsg.call(this, "商品添加到购物车成功!");
+      };
+      request.onerror = (event) => {
+        showMsg.call(this, "商品添加到购物车失败!");
+      };
     },
     toggleEnlarge(setTo) {
       setTo !== undefined
@@ -320,6 +331,8 @@ export default {
       grid-area: add;
       position: relative;
       & > p {
+        cursor: pointer;
+        user-select: none;
         border: 1px black solid;
         position: absolute;
         padding: 4px;

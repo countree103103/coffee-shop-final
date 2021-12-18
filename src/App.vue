@@ -79,7 +79,9 @@
     >
       {{ $store.state.snackbar.msg }}
       <template v-slot:action="{}">
-        <v-btn @click.native="$store.state.snackbar.show" text>关闭</v-btn>
+        <v-btn @click.native="$store.state.snackbar.show = false" text
+          >关闭</v-btn
+        >
       </template>
     </v-snackbar>
   </v-app>
@@ -87,6 +89,8 @@
 
 <script>
 import { gsap } from "gsap";
+import axios from "axios";
+import { showMsg } from "./utils";
 export default {
   name: "App",
 
@@ -101,6 +105,20 @@ export default {
       stagger: 0.2,
       opacity: 0,
     });
+  },
+
+  async created() {
+    try {
+      let result = await axios.get("/coffee/user/getUserInfo");
+      if (result.data) {
+        this.$store.state.user = result.data;
+      } else {
+        null;
+      }
+    } catch (error) {
+      console.log(error);
+      showMsg.call(this, "服务器错误!获取用户session失败");
+    }
   },
 };
 </script>
@@ -122,6 +140,7 @@ footer {
   background-color: var(--primary);
   color: white;
   height: 3rem;
+  z-index: -1;
 }
 #cart-num {
   position: absolute;
@@ -193,10 +212,11 @@ nav#navbar {
   position: relative;
   margin-top: 55px;
   //为了使auth页面居中高度显示正常..
-  height: 100%;
-  @media screen and (max-width: 500px) {
-    height: auto;
-  }
+  // height: 100%;
+  // @media screen and (max-width: 500px) {
+  //   height: auto;
+  // }
+  @apply min-h-full;
 }
 // #nav {
 //   min-height: 30%;
