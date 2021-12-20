@@ -88,7 +88,15 @@ export default {
       this.productList = JSON.parse(this.$route.params.order.product_list);
       //获取产品图片
       for (const product of this.productList) {
-        this.$set(product, "product_img", await this.getProductImg(product.id));
+        try {
+          this.$set(
+            product,
+            "product_img",
+            await this.getProductImg(product.product_name)
+          );
+        } catch (error) {
+          null;
+        }
       }
     } else {
       this.productList = this.$store.state.cartList;
@@ -133,10 +141,10 @@ export default {
         console.log(error);
       }
     },
-    async getProductImg(product_id) {
+    async getProductImg(product_name) {
       try {
         let formData = new FormData();
-        formData.append("id", product_id);
+        formData.append("product_name", product_name);
         let result = await axios.post(
           "/coffee/product/getProductImg",
           formData
