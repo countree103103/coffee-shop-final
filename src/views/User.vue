@@ -4,7 +4,7 @@
       <v-row>
         <v-col class="user-information"
           ><div>
-            <v-card width="400">
+            <v-card>
               <v-container>
                 <v-row>
                   <v-col cols="4"
@@ -13,27 +13,31 @@
                   ></v-col>
                   <v-col cols="8"><v-card-title>用户资料</v-card-title></v-col>
                 </v-row>
-                <v-container>
-                  <v-form ref="userForm">
-                    <v-text-field
-                      label="用户名"
-                      name="user_name"
-                      :value="user.user_name"
-                    ></v-text-field
-                    ><v-select
-                      :items="['男', '女', '未知']"
-                      name="user_gender"
-                      v-model="user.user_gender"
-                      label="性别"
-                    ></v-select>
-                    <!-- <v-file-input v-model="head"></v-file-input>
-                    <v-img :src="mysrc"></v-img> -->
-                  </v-form>
-                </v-container>
                 <v-row>
-                  <v-col class="border m-4 border-gray-500 rounded-lg dash">
+                  <v-col>
+                    <v-container>
+                      <v-form ref="userForm">
+                        <v-text-field
+                          label="用户名"
+                          name="user_name"
+                          :value="user.user_name"
+                        ></v-text-field
+                        ><v-select
+                          :items="['男', '女', '未知']"
+                          name="user_gender"
+                          v-model="user.user_gender"
+                          label="性别"
+                        ></v-select>
+                        <!-- <v-file-input v-model="head"></v-file-input>
+                    <v-img :src="mysrc"></v-img> -->
+                      </v-form>
+                    </v-container>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
                     <h1 class="mb-4 text-lg text-gray-500">地址簿</h1>
-                    <v-simple-table>
+                    <v-simple-table class="address_table">
                       <thead>
                         <tr>
                           <th>联系人</th>
@@ -44,9 +48,11 @@
                       </thead>
                       <tbody>
                         <tr v-for="(i, index) in user.address" :key="index">
-                          <td>{{ i.name }}</td>
+                          <td class="whitespace-nowrap">{{ i.name }}</td>
                           <td>{{ i.tel }}</td>
-                          <td>{{ i.address }}</td>
+                          <td class="whitespace-nowrap">
+                            {{ i.address }}
+                          </td>
                           <td>
                             <v-btn
                               color=""
@@ -85,7 +91,7 @@
         </v-col>
         <v-col class="user-order"
           ><div>
-            <v-card width="400">
+            <v-card>
               <v-card-title primary-title> 您的订单 </v-card-title>
               <v-container>
                 <Order
@@ -184,6 +190,7 @@ export default {
         let result = await axios.get("/coffee/order");
         if (result.data) {
           this.orderList = result.data;
+          this.orderList.reverse();
         } else {
           showMsg.call(this, "获取订单列表失败!");
         }
@@ -215,6 +222,9 @@ export default {
 #user-view {
   background-color: var(--bgColor);
   min-height: 100%;
+}
+.address_table {
+  @apply border p-1 border-gray-500 rounded-lg;
 }
 .logout-btn {
   width: 100%;
