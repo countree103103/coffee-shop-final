@@ -12,7 +12,8 @@
               getOpt(product.product_opt)
             }}</span
             ><span class="order-item-num"
-              >{{ product.product_price_now }} X {{ product.product_num }}</span
+              >{{ product.product_price_now }}￥ X
+              {{ product.product_num }}</span
             >
           </li>
         </ul>
@@ -40,16 +41,18 @@
 export default {
   name: "Order",
   props: {
-    order: {
-      type: Array,
-    },
+    order: {},
   },
   data() {
     return {};
   },
   methods: {
     goToDetail() {
-      this.$router.push({ path: "/order-detail", query: { state: 1 } });
+      this.$router.push({
+        name: "OrderDetail",
+        query: { state: 1 },
+        params: { order: this.order },
+      });
     },
     getOpt(opt) {
       let arr = [];

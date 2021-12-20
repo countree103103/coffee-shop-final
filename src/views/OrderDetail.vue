@@ -18,16 +18,21 @@
             <v-col class="order-detail-info--attr">订单创建时间</v-col>
             <v-col>21点16分</v-col>
           </v-row>
-          <v-row>
+          <v-row v-if="$route.query.state == 2">
             <v-col class="order-detail-info--attr">配送地址</v-col>
             <v-col
-              ><v-select :items="address" v-model="selectedAddress"></v-select
+              ><v-select
+                :items="address"
+                v-model="selectedAddress"
+                label="请选择您的地址"
+              ></v-select
             ></v-col>
           </v-row>
-          <v-row>
+          <v-row v-if="$route.query.state == 2">
             <v-col class="order-detail-info--attr">支付方式</v-col>
             <v-col
               ><v-select
+                label="请选择支付方式"
                 :items="['微信支付', '支付宝支付']"
                 v-model="payment_type"
               ></v-select
@@ -42,6 +47,13 @@
       <v-row v-if="$route.query.state == 2">
         <v-col
           ><v-btn color="" outlined @click="submitOrder">确认订单</v-btn></v-col
+        >
+      </v-row>
+      <v-row v-if="$route.query.state == 1" class="mt-8">
+        <v-col
+          ><v-btn color="" outlined @click="$router.push({ name: 'Menu' })"
+            >再来一单？</v-btn
+          ></v-col
         >
       </v-row>
     </v-container>
@@ -71,8 +83,17 @@ export default {
       payment_type: "",
     };
   },
-  created() {
-    this.productList = this.$store.state.cartList;
+  async created() {
+    if (this.$route.query.state == 1) {
+      this.productList = JSON.parse(this.$route.params.order.product_list);
+      //获取产品图片
+      for (const product of this.productList) {
+        this.$set(product, "product_img", await this.getProductImg(product.id));
+      }
+    } else {
+      this.productList = this.$store.state.cartList;
+    }
+
     for (const address of this.$store.state.user.address) {
       let arr = [];
       arr.push(address.name, address.address, address.tel);
@@ -110,6 +131,24 @@ export default {
         }
       } catch (error) {
         console.log(error);
+      }
+    },
+    async getProductImg(product_id) {
+      try {
+        let formData = new FormData();
+        formData.append("id", product_id);
+        let result = await axios.post(
+          "/coffee/product/getProductImg",
+          formData
+        );
+        if (result.data) {
+          return result.data;
+        } else {
+          showMsg.call(this, "获取产品图片失败!");
+        }
+      } catch (error) {
+        console.log(error);
+        showMsg.call(this, "服务器错误!");
       }
     },
   },
