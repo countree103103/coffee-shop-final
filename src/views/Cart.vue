@@ -1,7 +1,7 @@
 <template>
   <div id="cart">
     <h1 class="text-2xl font-bold">购物车</h1>
-    <ul class="cart-list">
+    <ul class="cart-list" v-if="$store.state.user">
       <template v-if="cartList && cartList.length">
         <div
           class="flex flex-row justify-center items-center transition-all"
@@ -15,6 +15,12 @@
           </div>
           <cart-product :product="product"></cart-product>
         </div>
+        <div class="cart-summary" v-if="cartList && cartList.length">
+          <v-btn outlined @click="confirmOrder">结算</v-btn>
+          <v-btn color="error" @click="del = !del">删除</v-btn>
+          <v-btn color="error" @click="clearCart">清空购物车</v-btn>
+          <span class="cart-summary--total">总共 {{ total }}￥</span>
+        </div>
       </template>
       <template v-else>
         <div class="flex flex-col justify-center items-center">
@@ -23,11 +29,11 @@
         </div>
       </template>
     </ul>
-    <div class="cart-summary" v-if="cartList && cartList.length">
-      <v-btn outlined @click="confirmOrder">结算</v-btn>
-      <v-btn color="error" @click="del = !del">删除</v-btn>
-      <v-btn color="error" @click="clearCart">清空购物车</v-btn>
-      <span class="cart-summary--total">总共 {{ total }}￥</span>
+    <div v-else class="cart-unlogin">
+      <h2 class="mb-4 text-gray-800">尚未登录，请前往登录~</h2>
+      <v-btn color="" outlined @click="$router.push({ name: 'Auth' })"
+        >登录</v-btn
+      >
     </div>
   </div>
 </template>
@@ -122,6 +128,9 @@ export default {
 </script>
 
 <style lang="scss">
+.cart-unlogin {
+  @apply flex flex-col justify-start items-center mt-8;
+}
 .cart-summary {
   display: flex;
   width: 100%;
