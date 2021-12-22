@@ -78,18 +78,10 @@ export default {
   components: {
     product,
   },
-  created() {
-    this.getProductList();
+  async created() {
+    await this.getProductList();
   },
-  mounted() {
-    setTimeout(() => {
-      gsap.from(".product-item", {
-        left: -40,
-        stagger: 0.05,
-        opacity: 0,
-      });
-    });
-  },
+  mounted() {},
   methods: {
     closeProduct(e) {
       this.$refs.products.forEach((i) => {
@@ -103,7 +95,15 @@ export default {
       try {
         let result = await axios.get("/coffee/product/");
         if (result.data) {
-          this.products = result.data;
+          this.$store.state.productList = result.data;
+          this.products = this.$store.state.productList;
+          this.$nextTick(() => {
+            gsap.from(".product-item", {
+              left: -40,
+              stagger: 0.05,
+              opacity: 0,
+            });
+          });
         } else {
           showMsg.call(this, "获取产品列表失败!");
         }

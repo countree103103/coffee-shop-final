@@ -119,6 +119,18 @@ export default {
       console.log(error);
       showMsg.call(this, "服务器错误!获取用户session失败");
     }
+
+    try {
+      let result = await axios.get("/coffee/product/");
+      if (result.data) {
+        this.$store.state.productList = result.data;
+      } else {
+        showMsg.call(this, "获取产品列表失败!");
+      }
+    } catch (error) {
+      console.log(error);
+      showMsg.call(this, "服务器错误!");
+    }
   },
 };
 </script>

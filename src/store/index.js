@@ -15,6 +15,7 @@ export default new Vuex.Store({
     },
     db: db,
     cartList: [],
+    productList: [],
   },
   mutations: {
     changeTransition(state, transitionName) {
