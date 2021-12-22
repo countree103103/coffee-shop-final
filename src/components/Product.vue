@@ -1,65 +1,87 @@
 <template>
-  <li
-    :class="{ 'product-item': true, enlarge: enlarge }"
-    @click.stop="enlarge ? null : toggleEnlarge(true)"
-    v-if="product_status == '在架'"
-  >
-    <div class="product-card">
-      <v-btn
-        outlined
-        fab
-        x-small
-        v-show="enlarge"
-        @click.stop="!enlarge ? null : toggleEnlarge(false)"
-        class="product-detail--close"
-        ><v-icon large fab outlined>mdi-close</v-icon></v-btn
-      >
+  <li :class="{ 'product-item': true }" v-if="product_status == '在架'">
+    <!-- 未放大的产品卡片 -->
+    <div
+      class="product-card"
+      @click.stop="enlarge ? null : toggleEnlarge(true)"
+    >
       <div class="product-img"><img :src="product_img" /></div>
-      <h2 class="product-name font-bold text-2xl">{{ product_name }}</h2>
+      <h2 class="product-name">{{ product_name }}</h2>
       <div class="product-price">
         <p class="product-price--before" v-show="product_price_before">
           {{ product_price_before }}￥
         </p>
         <p class="product-price--now">{{ product_price_now }}￥</p>
       </div>
-      <p class="product-detail" @click="enlarge = !enlarge" v-show="!enlarge">
-        查看详情
-      </p>
+      <p class="product-detail" @click="enlarge = !enlarge">查看详情</p>
       <p class="product-des">
         {{ product_des }}
       </p>
-      <div
-        class="product-detail--addtocart"
-        v-show="enlarge"
-        @click="addToCart()"
-      >
-        <p>加入购物车</p>
-      </div>
-      <div class="product-option" v-show="enlarge">
-        <div v-for="(opt, index) in product.product_opt" :key="index">
-          <span>{{ opt.title }}</span
-          ><v-radio-group v-model="opt.value" row
-            ><v-radio
-              v-for="(i, index2) in opt.attr"
-              :label="i"
-              :value="i"
-              :key="index2"
-            ></v-radio>
-          </v-radio-group>
-        </div>
-      </div>
-      <div class="product-num" v-show="enlarge">
-        <div>
-          <v-btn outlined fab x-small @click="num <= 1 ? null : num--"
-            ><v-icon>mdi-minus</v-icon></v-btn
-          >
-          {{ num }}
-          <v-btn outlined fab x-small @click="num++"
-            ><v-icon>mdi-plus</v-icon></v-btn
-          >
-        </div>
-      </div>
     </div>
+    <!-- 放大的产品卡片 -->
+    <v-dialog v-model="enlarge" content-class="myDialog">
+      <li
+        :class="{ 'product-item': true, enlarge: enlarge }"
+        v-if="product_status == '在架'"
+      >
+        <div class="product-card">
+          <v-btn
+            outlined
+            fab
+            x-small
+            v-show="enlarge"
+            @click.stop="!enlarge ? null : toggleEnlarge(false)"
+            class="product-detail--close"
+            ><v-icon large fab outlined>mdi-close</v-icon></v-btn
+          >
+          <div class="product-img"><img :src="product_img" /></div>
+          <h2 class="product-name font-bold text-2xl">{{ product_name }}</h2>
+          <div class="product-price">
+            <p class="product-price--before" v-show="product_price_before">
+              {{ product_price_before }}￥
+            </p>
+            <p class="product-price--now">{{ product_price_now }}￥</p>
+          </div>
+          <p
+            class="product-detail"
+            @click="enlarge = !enlarge"
+            v-show="!enlarge"
+          >
+            查看详情
+          </p>
+          <p class="product-des">
+            {{ product_des }}
+          </p>
+          <div class="product-detail--addtocart" v-show="enlarge">
+            <p @click="addToCart()">加入购物车</p>
+          </div>
+          <div class="product-option" v-show="enlarge">
+            <div v-for="(opt, index) in product.product_opt" :key="index">
+              <span>{{ opt.title }}</span
+              ><v-radio-group v-model="opt.value" row
+                ><v-radio
+                  v-for="(i, index2) in opt.attr"
+                  :label="i"
+                  :value="i"
+                  :key="index2"
+                ></v-radio>
+              </v-radio-group>
+            </div>
+          </div>
+          <div class="product-num" v-show="enlarge">
+            <div>
+              <v-btn outlined fab x-small @click="num <= 1 ? null : num--"
+                ><v-icon>mdi-minus</v-icon></v-btn
+              >
+              {{ num }}
+              <v-btn outlined fab x-small @click="num++"
+                ><v-icon>mdi-plus</v-icon></v-btn
+              >
+            </div>
+          </div>
+        </div>
+      </li>
+    </v-dialog>
   </li>
 </template>
 
@@ -186,7 +208,7 @@ export default {
   margin: 20px;
   border-radius: 5%;
   overflow: hidden;
-  transition: all 0.2s;
+  transition: transform 0.2s;
 }
 .product-card {
   display: grid;
@@ -219,6 +241,7 @@ export default {
     grid-area: detail;
   }
   .product-name {
+    @apply font-bold text-lg;
     color: var(--primary);
   }
   .product-detail {
@@ -231,7 +254,6 @@ export default {
     cursor: pointer;
     border: 1.5px solid black;
     padding: 4px;
-    transition: 0.3s all;
     &:hover {
       border-color: var(--primary);
       // border-radius: 10%;
@@ -257,30 +279,13 @@ export default {
 }
 
 .product-item.enlarge {
-  @media screen and (min-width: 360px) {
-    width: 360px !important;
-  }
-  @media screen and (max-width: 500px) {
-    height: 500px;
-  }
   &:hover {
     transform: none;
   }
-  position: fixed !important;
   margin: auto;
-  left: 0;
-  right: 0;
-  top: 60px;
-  bottom: 0;
-  width: 90% !important;
-  @media screen and (min-width: 640px) {
-    width: 640px !important;
-  }
-  height: 88% !important;
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 10px !important;
-  z-index: 1001;
-  box-shadow: 0 0 1000px 1000px rgba($color: #000000, $alpha: 0.8);
-  transition: all 0.2s;
 
   .product-card {
     display: grid;
@@ -368,5 +373,19 @@ export default {
       margin-top: var(--product-margin);
     }
   }
+}
+.myDialog {
+  @media screen and (min-width: 360px) {
+    width: 360px !important;
+  }
+  @media screen and (max-width: 500px) {
+    height: 500px;
+  }
+  @media screen and (min-width: 640px) {
+    width: 640px !important;
+  }
+  overflow-y: visible;
+  width: 90% !important;
+  height: 88% !important;
 }
 </style>
