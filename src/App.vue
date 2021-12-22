@@ -161,6 +161,16 @@ footer {
   font-size: 0.5rem;
 }
 nav#navbar {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 60px;
+  background-color: white;
+  // border-bottom: 1px solid gray;
+  box-shadow: 0 2px 50px rgba($color: #000000, $alpha: 0.2);
+  border-radius: 0 0 5% 5%;
+  overflow: hidden;
   ul {
     padding: 0 !important;
     display: grid;
@@ -209,20 +219,11 @@ nav#navbar {
       align-items: center;
     }
   }
-  z-index: 999;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 60px;
-  background-color: white;
-  // border-bottom: 1px solid gray;
-  box-shadow: 0 2px 50px rgba($color: #000000, $alpha: 0.2);
-  border-radius: 0 0 5% 5%;
-  overflow: hidden;
 }
 #router-view {
   position: relative;
   margin-top: 55px;
+  width: 100vw;
   //为了使auth页面居中高度显示正常..
   // height: 100%;
   // @media screen and (max-width: 500px) {
