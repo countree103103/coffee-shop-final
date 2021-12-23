@@ -32,32 +32,37 @@
         </v-row>
         <v-row>
           <v-col>
-            <h1 class="mb-4 text-lg text-gray-500">地址簿</h1>
-            <v-simple-table class="address_table">
-              <thead>
-                <tr>
-                  <th>联系人</th>
-                  <th>手机</th>
-                  <th>地址</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(i, index) in user.address" :key="index">
-                  <td class="whitespace-nowrap">{{ i.name }}</td>
-                  <td>{{ i.tel }}</td>
-                  <td class="whitespace-nowrap">
-                    {{ i.address }}
-                  </td>
-                  <td>
-                    <v-btn color="" icon x-small @click="deleteAddress(index)"
-                      ><v-icon>mdi-delete</v-icon></v-btn
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-
+            <template v-if="user.address && user.address.length">
+              <h1 class="mb-4 text-lg text-gray-500">地址簿</h1>
+              <v-simple-table class="address_table">
+                <thead>
+                  <tr>
+                    <th>联系人</th>
+                    <th>手机</th>
+                    <th>地址</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(i, index) in user.address" :key="index">
+                    <td class="whitespace-nowrap">{{ i.name }}</td>
+                    <td>{{ i.tel }}</td>
+                    <td class="whitespace-nowrap">
+                      {{ i.address }}
+                    </td>
+                    <td>
+                      <v-btn color="" icon x-small @click="deleteAddress(index)"
+                        ><v-icon>mdi-delete</v-icon></v-btn
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
+            </template>
+            <template v-else>
+              <h1 class="mb-4 text-lg text-gray-500">地址簿</h1>
+              <p class="address_table no-address">暂无地址，请添加~</p>
+            </template>
             <v-btn icon @click="addAddress"><v-icon>mdi-plus</v-icon></v-btn>
           </v-col>
         </v-row>
@@ -155,4 +160,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.address_table {
+  @apply border p-1 border-gray-500 rounded-lg;
+  &.no-address {
+    @apply p-8;
+  }
+}
+.logout-btn {
+  width: 100%;
+  margin-top: 5vh;
+}
+</style>

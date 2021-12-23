@@ -113,11 +113,4 @@ export default {
   background-color: var(--bgColor);
   min-height: 100%;
 }
-.address_table {
-  @apply border p-1 border-gray-500 rounded-lg;
-}
-.logout-btn {
-  width: 100%;
-  margin-top: 5vh;
-}
 </style>
