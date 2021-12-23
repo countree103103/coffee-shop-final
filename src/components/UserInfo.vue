@@ -50,11 +50,7 @@
                     {{ i.address }}
                   </td>
                   <td>
-                    <v-btn
-                      color=""
-                      icon
-                      x-small
-                      @click="user.address.splice(index, 1)"
+                    <v-btn color="" icon x-small @click="deleteAddress(index)"
                       ><v-icon>mdi-delete</v-icon></v-btn
                     >
                   </td>
@@ -125,6 +121,13 @@ export default {
       if (name && tel && address) {
         console.log(name, tel, address);
         this.user.address.push({ name, tel, address });
+      } else {
+        null;
+      }
+    },
+    deleteAddress(index) {
+      if (confirm("确认删除该地址？")) {
+        this.user.address.splice(index, 1);
       } else {
         null;
       }
