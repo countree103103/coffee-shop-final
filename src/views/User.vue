@@ -6,7 +6,7 @@
           <UserInfo :user="user"></UserInfo>
         </v-col>
         <v-col class="user-order"
-          ><div>
+          ><div v-if="orderList && orderList.length">
             <v-card>
               <v-card-title primary-title> 您的订单 </v-card-title>
               <v-container>
@@ -17,8 +17,25 @@
                 ></Order>
               </v-container>
               <v-pagination v-model="page" :length="3"></v-pagination>
-            </v-card></div
-        ></v-col>
+            </v-card>
+          </div>
+          <div v-else>
+            <v-card>
+              <v-card-title primary-title>您的订单</v-card-title>
+              <v-card-text>
+                <div class="flex flex-col justify-center items-center">
+                  <p class="p-4">暂无订单，去菜单看看我们的咖啡吧~</p>
+                  <v-btn
+                    color=""
+                    @click="$router.push({ name: 'Menu' })"
+                    rounded
+                    >前往菜单</v-btn
+                  >
+                </div>
+              </v-card-text>
+            </v-card>
+          </div></v-col
+        >
       </v-row>
     </v-container>
   </div>
