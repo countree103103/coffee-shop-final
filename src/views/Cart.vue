@@ -56,6 +56,7 @@ export default {
     return {
       cartList: [],
       del: false,
+      loaded: false,
     };
   },
   computed: {
@@ -81,13 +82,18 @@ export default {
         this.cartList = event.target.result;
         this.$store.state.cartList = this.cartList;
         console.log(event.target.result);
-        this.$nextTick(() => {
-          gsap.from(".cart-product", {
-            left: -40,
-            stagger: 0.05,
-            opacity: 0,
+        if (!this.loaded) {
+          this.$nextTick(() => {
+            gsap.from(".cart-product", {
+              left: -40,
+              stagger: 0.05,
+              opacity: 0,
+            });
+            this.loaded = true;
           });
-        });
+        } else {
+          null;
+        }
       };
       request.onerror = (event) => {
         console.log("db request error!");
@@ -151,7 +157,7 @@ export default {
     @apply flex flex-row lg:justify-center lg:items-center flex-wrap border-r-2 border-dashed border-gray-800 m-4 pr-4;
     width: 40%;
     button {
-      @apply mt-2 lg:ml-4;
+      @apply mt-2 ml-4;
     }
   }
   .cart-summary--total {
