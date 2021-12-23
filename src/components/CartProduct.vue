@@ -64,7 +64,8 @@ export default {
     align-items: center;
     padding: 10%;
     h5 {
-      font-size: 1.2rem;
+      // font-size: 1.2rem;
+      @apply text-lg sm:text-2xl;
     }
   }
   .cart-product--price {
@@ -72,7 +73,9 @@ export default {
     padding: 10%;
     span {
       font-size: 1.5rem;
+      @apply text-sm sm:text-xl lg:text-3xl;
     }
+    @apply text-sm sm:text-xl lg:text-3xl mr-4 sm:mr-8 whitespace-nowrap;
   }
   .cart-product--num {
     grid-area: num;
@@ -86,6 +89,8 @@ export default {
     }
   }
   .cart-product--option {
+    @apply text-sm sm:text-lg;
+    // font-size: 0.3rem;
     grid-area: opt;
     color: gray;
     // padding: 10px;
@@ -127,7 +132,7 @@ export default {
     // height: 120px;
     width: 90%;
     margin-bottom: 10px;
-    border-radius: 4px;
+    border-radius: 10px;
     box-shadow: none;
     overflow: inherit;
   }
