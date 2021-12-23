@@ -157,9 +157,9 @@ footer {
   z-index: -1;
 }
 #cart-num {
-  position: absolute;
-  top: -50%;
-  right: 0;
+  // position: absolute;
+  // top: -50%;
+  // right: 0;
   font-size: 0.5rem;
 }
 nav#navbar {
