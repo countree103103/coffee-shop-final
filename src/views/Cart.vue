@@ -146,12 +146,13 @@ export default {
   z-index: 1;
 }
 .cart-summary {
+  @apply py-0;
   display: flex;
   width: 100%;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  padding: 15px 0px;
+  // padding: 15px 0px;
   position: relative;
   .cart-summary--button-group {
     @apply flex flex-row lg:justify-center lg:items-center flex-wrap border-r-2 border-dashed border-gray-800 m-4 pr-4;
