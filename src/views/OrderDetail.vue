@@ -55,6 +55,9 @@
             >再来一单？</v-btn
           ></v-col
         >
+        <v-col>
+          <v-btn color="" outlined @click="$router.back()">返回</v-btn>
+        </v-col>
       </v-row>
     </v-container>
   </div>
