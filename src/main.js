@@ -7,6 +7,7 @@ import "./plugins/axios";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
 import "tailwindcss/tailwind.css";
+import "@mdi/font/css/materialdesignicons.min.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
