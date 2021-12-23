@@ -4,16 +4,16 @@
     <ul class="cart-list" v-if="$store.state.user">
       <template v-if="cartList && cartList.length">
         <div
-          class="flex flex-row justify-center items-center transition-all"
+          class="flex flex-row justify-center items-center transition-all relative"
           v-for="product in cartList"
           :key="product.id"
         >
-          <div class="mr-4 animate-bounce" v-show="del">
-            <v-btn color="error" small fab @click="deleteProduct(product.id)"
+          <cart-product :product="product"></cart-product>
+          <div class="product-delete" v-show="del">
+            <v-btn color="error" x-small fab @click="deleteProduct(product.id)"
               ><v-icon>mdi-delete</v-icon></v-btn
             >
           </div>
-          <cart-product :product="product"></cart-product>
         </div>
         <div class="cart-summary" v-if="cartList && cartList.length">
           <v-btn outlined @click="confirmOrder">结算</v-btn>
@@ -130,6 +130,11 @@ export default {
 <style lang="scss">
 .cart-unlogin {
   @apply flex flex-col justify-start items-center mt-8;
+}
+.product-delete {
+  @apply mr-1 animate-bounce top-1 left-1 lg:left-40 lg:top-0;
+  position: absolute;
+  z-index: 1;
 }
 .cart-summary {
   display: flex;
