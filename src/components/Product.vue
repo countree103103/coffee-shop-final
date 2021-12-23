@@ -104,7 +104,7 @@ export default {
       num: 1,
       enlarge: false,
       product: {
-        product_opt: [],
+        product_opt: this.parseProductOpt(this.product_opt),
       },
     };
   },

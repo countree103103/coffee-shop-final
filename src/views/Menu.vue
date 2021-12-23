@@ -5,16 +5,17 @@
       <template></template>
       <product
         ref="products"
-        v-for="(product, i) in products"
-        :product_img="product.product_img"
+        v-for="product in products"
+        v-bind="product"
+        :key="product.id"
+      ></product>
+      <!-- :product_img="product.product_img"
         :product_name="product.product_name"
         :product_price_now="product.product_price_now"
         :product_price_before="product.product_price_before"
         :product_des="product.product_des"
         :product_opt="product.product_opt"
-        :product_status="product.product_status"
-        :key="i"
-      ></product>
+        :product_status="product.product_status" -->
     </ul>
   </div>
 </template>
