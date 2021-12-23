@@ -8,7 +8,7 @@
           v-for="product in cartList"
           :key="product.id"
         >
-          <cart-product :product="product"></cart-product>
+          <cart-product :product="product" class="cart-product"></cart-product>
           <div class="product-delete" v-show="del">
             <v-btn color="error" x-small fab @click="deleteProduct(product.id)"
               ><v-icon>mdi-delete</v-icon></v-btn
@@ -16,9 +16,11 @@
           </div>
         </div>
         <div class="cart-summary" v-if="cartList && cartList.length">
-          <v-btn outlined @click="confirmOrder">结算</v-btn>
-          <v-btn color="error" @click="del = !del">删除</v-btn>
-          <v-btn color="error" @click="clearCart">清空购物车</v-btn>
+          <div class="cart-summary--button-group">
+            <v-btn outlined @click="confirmOrder">结算</v-btn>
+            <v-btn color="error" @click="del = !del">删除</v-btn>
+            <v-btn color="error" @click="clearCart">清空购物车</v-btn>
+          </div>
           <span class="cart-summary--total">总共 {{ total }}￥</span>
         </div>
       </template>
@@ -68,13 +70,7 @@ export default {
   created() {
     this.getCartList();
   },
-  mounted() {
-    gsap.from(".cart-product", {
-      left: -40,
-      stagger: 0.05,
-      opacity: 0,
-    });
-  },
+  mounted() {},
   methods: {
     getCartList() {
       let request = db
@@ -85,6 +81,13 @@ export default {
         this.cartList = event.target.result;
         this.$store.state.cartList = this.cartList;
         console.log(event.target.result);
+        this.$nextTick(() => {
+          gsap.from(".cart-product", {
+            left: -40,
+            stagger: 0.05,
+            opacity: 0,
+          });
+        });
       };
       request.onerror = (event) => {
         console.log("db request error!");
@@ -143,8 +146,18 @@ export default {
   justify-content: space-around;
   align-items: center;
   padding: 15px 0px;
+  position: relative;
+  .cart-summary--button-group {
+    @apply flex flex-row lg:justify-center lg:items-center flex-wrap border-r-2 border-dashed border-gray-800 m-4 pr-4;
+    width: 40%;
+    button {
+      @apply mt-2 lg:ml-4;
+    }
+  }
   .cart-summary--total {
+    @apply flex justify-center items-center;
     font-size: 2rem;
+    width: 60%;
   }
 }
 #cart {
