@@ -191,7 +191,7 @@ nav#navbar {
         color: white;
         transition: all 0.2s;
         &:hover {
-          transform: scale(1.2);
+          transform: scale(1.07);
         }
       }
     }
