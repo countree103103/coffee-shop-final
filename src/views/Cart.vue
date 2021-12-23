@@ -199,6 +199,7 @@ export default {
     }
   }
   .cart-list {
+    @apply mt-4;
     display: flex;
     flex-direction: column;
     justify-content: center;

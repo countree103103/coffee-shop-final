@@ -54,9 +54,23 @@ export default {
 
 <style lang="scss">
 .cart-product {
-  div {
-    // border: 1px solid black;
-  }
+  @apply rounded-lg sm:rounded-xl;
+  position: relative;
+  display: grid;
+  grid-template-areas:
+    "img name name price"
+    "img opt opt num"
+    "img opt opt num";
+  grid-template-columns: 10fr 4fr 4fr 2fr;
+  // height: 200px;
+  width: 70%;
+  // padding: 0 10px;
+  // border-radius: 20px;
+  margin-bottom: 3%;
+  overflow: hidden;
+  // border-bottom: 1px black solid;
+  box-shadow: 0 10px 7px rgba($color: #000000, $alpha: 0.2);
+  background-color: white;
   .cart-product--name {
     grid-area: name;
     color: var(--primary);
@@ -97,11 +111,12 @@ export default {
     padding: 10%;
   }
   .cart-product--img {
+    @apply p-1 sm:p-2;
     grid-area: img;
     position: relative;
     overflow: hidden;
     // margin-right: 30px;
-    padding: 4px;
+    // padding: 4px;
     border-right: 1px black dashed;
 
     // @media screen and (max-width: 500px) {
@@ -109,49 +124,33 @@ export default {
     // }
     overflow: hidden;
     img {
+      @apply rounded-lg sm:rounded-xl;
       height: 100%;
       width: 100%;
       object-fit: contain;
-      border-radius: 20px;
+      // border-radius: 20px;
       // padding-right: 5%;
     }
   }
 
   @media screen and (max-width: 500px) {
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -5px;
-      left: 0px;
-      // margin-top: 3px;
-      height: 3px;
-      width: 100%;
-      // background-color: black;
-      border-bottom: 2px solid black;
-    }
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   bottom: -5px;
+    //   left: 0px;
+    //   // margin-top: 3px;
+    //   height: 3px;
+    //   width: 100%;
+    //   // background-color: black;
+    //   border-bottom: 2px solid black;
+    // }
     // height: 120px;
     width: 90%;
     margin-bottom: 10px;
-    border-radius: 10px;
+    // border-radius: 10px;
     box-shadow: none;
     overflow: inherit;
   }
-
-  position: relative;
-  display: grid;
-  grid-template-areas:
-    "img name name price"
-    "img opt opt num"
-    "img opt opt num";
-  grid-template-columns: 10fr 4fr 4fr 2fr;
-  // height: 200px;
-  width: 70%;
-  // padding: 0 10px;
-  border-radius: 20px;
-  margin-bottom: 3%;
-  overflow: hidden;
-  // border-bottom: 1px black solid;
-  box-shadow: 0 10px 7px rgba($color: #000000, $alpha: 0.2);
-  background-color: white;
 }
 </style>
