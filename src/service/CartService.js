@@ -1,7 +1,7 @@
 const { showMsg } = require("../utils/index");
 
 let db = null;
-let request = window.indexedDB.open("coffee-db", 1);
+let request = window.indexedDB.open("coffee-db", 2);
 request.onerror = function (event) {
   // 错误处理
   console.log(" 打开数据库报错");
