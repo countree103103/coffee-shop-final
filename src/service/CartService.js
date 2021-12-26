@@ -15,13 +15,15 @@ request.onsuccess = function (event) {
 request.onupgradeneeded = function (event) {
   db = event.target.result;
   var objectStore = null;
-  if (!db.objectStoreNames.contains("Cart")) {
-    objectStore = db.createObjectStore("Cart", {
-      keyPath: "id",
-      autoIncrement: true,
-    });
-    objectStore.createIndex("product_id", "product_id");
-  }
+  if (db.objectStoreNames.contains("Cart")) {
+    db.deleteObjectStore("Cart");
+  } 
+  objectStore = db.createObjectStore("Cart", {
+    keyPath: "id",
+    autoIncrement: true,
+  });
+  objectStore.createIndex("product_id", "product_id");
+
 };
 
 let cartMixin = {
