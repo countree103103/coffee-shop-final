@@ -98,6 +98,7 @@ export default {
     "product_des",
     "product_opt",
     "product_status",
+    "id",
   ],
   data() {
     return {
@@ -165,18 +166,42 @@ export default {
         product_opt: this.product.product_opt,
         product_img: this.product_img,
         product_price_now: this.product_price_now,
+        product_id: this.id,
       };
-      console.log(obj);
-      let request = db
+      // console.log(obj);
+
+      let request_checkSame = db
         .transaction("Cart", "readwrite")
         .objectStore("Cart")
-        .add(obj);
-      request.onsuccess = (event) => {
-        this.toggleEnlarge();
-        showMsg.call(this, "商品添加到购物车成功!");
-      };
-      request.onerror = (event) => {
-        showMsg.call(this, "商品添加到购物车失败!");
+        .index("product_id")
+        .getAll(this.id);
+      request_checkSame.onsuccess = (event) => {
+        console.log(event.target.result);
+        for (const product of event.target.result) {
+          if (
+            JSON.stringify(product.product_opt) ===
+            JSON.stringify(obj.product_opt)
+          ) {
+            product["product_num"] += this.num;
+            db.transaction("Cart", "readwrite")
+              .objectStore("Cart")
+              .put(product);
+            this.toggleEnlarge();
+            showMsg.call(this, "商品添加到购物车成功!");
+            return;
+          }
+        }
+        let request = db
+          .transaction("Cart", "readwrite")
+          .objectStore("Cart")
+          .add(obj);
+        request.onsuccess = (event) => {
+          this.toggleEnlarge();
+          showMsg.call(this, "商品添加到购物车成功!");
+        };
+        request.onerror = (event) => {
+          showMsg.call(this, "商品添加到购物车失败!");
+        };
       };
     },
     toggleEnlarge(setTo) {

@@ -20,6 +20,7 @@ request.onupgradeneeded = function (event) {
       keyPath: "id",
       autoIncrement: true,
     });
+    objectStore.createIndex("product_id", "product_id");
   }
 };
 
