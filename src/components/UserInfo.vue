@@ -63,7 +63,51 @@
               <h1 class="mb-4 text-lg text-gray-500">地址簿</h1>
               <p class="address_table no-address">暂无地址，请添加~</p>
             </template>
-            <v-btn icon @click="addAddress"><v-icon>mdi-plus</v-icon></v-btn>
+            <v-btn icon @click="addressDialog.show = true"
+              ><v-icon>mdi-plus</v-icon></v-btn
+            >
+            <v-dialog v-model="addressDialog.show" content-class="bg-white">
+              <v-container>
+                <h1
+                  class="text-lg sm:text-2xl mb-4"
+                  style="color: var(--primary)"
+                >
+                  添加地址
+                </h1>
+                <v-form ref="addressForm">
+                  <v-text-field
+                    label="联系人"
+                    type="text"
+                    v-model="addressDialog.name"
+                  ></v-text-field>
+                  <v-text-field
+                    label="电话"
+                    type="tel"
+                    v-model="addressDialog.tel"
+                    :rules="[
+                      (v) => {
+                        let exp_tel =
+                          /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
+                        return exp_tel.test(v) || '电话号码格式不正确！';
+                      },
+                    ]"
+                  ></v-text-field>
+                  <v-text-field
+                    label="地址"
+                    type="text"
+                    v-model="addressDialog.address"
+                  ></v-text-field>
+                  <div class="mt-4">
+                    <v-btn class="mr-4" outlined @click="addAddress"
+                      >添加</v-btn
+                    >
+                    <v-btn outlined @click="addressDialog.show = false"
+                      >取消</v-btn
+                    >
+                  </div>
+                </v-form>
+              </v-container>
+            </v-dialog>
           </v-col>
         </v-row>
         <v-row>
@@ -103,6 +147,12 @@ export default {
       //   user_gender: null,
       //   address: [],
       // },
+      addressDialog: {
+        show: false,
+        name: "",
+        tel: "",
+        address: "",
+      },
     };
   },
   methods: {
@@ -116,16 +166,17 @@ export default {
       }
     },
     addAddress() {
-      let name, tel, address;
-      let exp_tel =
-        /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
-      (name = prompt("请输入姓名")) &&
-        (tel = prompt("请输入手机号码")) &&
-        exp_tel.test(tel) &&
-        (address = prompt("请输入地址"));
-      if (name && tel && address) {
-        console.log(name, tel, address);
-        this.user.address.push({ name, tel, address });
+      if (this.$refs.addressForm.validate()) {
+        this.user.address.push({
+          name: this.addressDialog.name,
+          tel: this.addressDialog.tel,
+          address: this.addressDialog.address,
+        });
+        this.addressDialog.show = false;
+        this.addressDialog.name = "";
+        this.addressDialog.tel = "";
+        this.addressDialog.address = "";
+        this.$refs.addressForm.reset();
       } else {
         null;
       }
