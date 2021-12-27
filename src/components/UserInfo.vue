@@ -113,7 +113,7 @@
         <v-row>
           <v-col
             ><v-btn class="logout-btn" rounded @click="update"
-              >更新用户数据</v-btn
+              >保存用户信息</v-btn
             ></v-col
           >
           <v-col
