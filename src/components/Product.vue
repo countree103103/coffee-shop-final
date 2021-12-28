@@ -326,6 +326,7 @@ export default {
     height: 100%;
     width: 100%;
     .product-name {
+      @apply text-2xl;
       grid-area: name;
       margin-left: var(--product-margin);
     }
@@ -337,14 +338,13 @@ export default {
       z-index: 1000;
     }
     .product-des {
+      @apply text-sm;
       grid-area: des;
       display: block;
       padding: 0 12px;
-      font-size: 0.6rem;
       color: gray;
       text-indent: 1em;
       line-height: 2em;
-      // text-overflow: ellipsis;
       overflow-y: auto;
       overflow-x: hidden;
     }
