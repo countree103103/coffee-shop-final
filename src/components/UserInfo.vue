@@ -79,6 +79,7 @@
                     label="联系人"
                     type="text"
                     v-model="addressDialog.name"
+                    :rules="[(val) => (val && val.length > 0) || '不能为空']"
                   ></v-text-field>
                   <v-text-field
                     label="电话"
@@ -96,6 +97,7 @@
                     label="地址"
                     type="text"
                     v-model="addressDialog.address"
+                    :rules="[(val) => (val && val.length > 0) || '不能为空']"
                   ></v-text-field>
                   <div class="mt-4">
                     <v-btn class="mr-4" outlined @click="addAddress"

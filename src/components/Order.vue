@@ -19,10 +19,13 @@
         </ul>
       </v-col>
     </v-row>
-    <v-row class=" mt-7">
+    <v-row class="mt-7">
       <v-spacer></v-spacer>
       <v-col class="flex justify-end">
-        <span class="font-light text-gray-500 text-sm"><v-icon small class="mr-1">{{order_status_icon}}</v-icon>{{order.order_status}}</span>
+        <span class="font-light text-gray-500 text-sm"
+          ><v-icon small class="mr-1">{{ order_status_icon }}</v-icon
+          >{{ order.order_status }}</span
+        >
       </v-col>
     </v-row>
     <v-row>
@@ -52,7 +55,7 @@ export default {
   data() {
     return {};
   },
-  computed:{
+  computed: {
     // order_status_css(){
     //   let css = null;
     //   switch (this.order.order_status) {
@@ -61,13 +64,13 @@ export default {
     //     case "配送中":{
     //       return css = "font-light text-gray-500 text-sm"
     //       break;
-    //     }  
+    //     }
     //     // case "准备中":{
-          
+
     //     //   break;
     //     // }
     //     // case "配送中":{
-          
+
     //     //   break;
     //     // }
     //     case "订单完成":{
@@ -78,38 +81,41 @@ export default {
     //       return css = "font-light text-red-500 text-sm"
     //       break;
     //     }
-        
+
     //     default:
     //       break;
     //   }
     // },
-    order_status_icon(){
+    order_status_icon() {
+      let icon = ""
       switch (this.order.order_status) {
-        case "待确认":{
-          return "mdi-clock-time-four-outline"
-          break;
-        }  
-        case "准备中":{
-          return "mdi-coffee-maker-outline"
+        case "待确认": {
+          icon = "mdi-clock-time-four-outline";
           break;
         }
-        case "配送中":{
-          return "mdi-moped-outline"
+        case "准备中": {
+          icon = "mdi-coffee-maker-outline";
           break;
         }
-        case "订单完成":{
-          return "mdi-check"
+        case "配送中": {
+          icon = "mdi-moped-outline";
           break;
         }
-        case "订单取消":{
-          return "mdi-cancel"
+        case "订单完成": {
+          icon = "mdi-check";
           break;
         }
-        
+        case "订单取消": {
+          icon = "mdi-cancel";
+          break;
+        }
+
         default:
+          icon = ""
           break;
       }
-    }
+      return icon;
+    },
   },
   methods: {
     goToDetail() {
