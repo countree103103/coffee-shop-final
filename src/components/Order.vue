@@ -22,7 +22,7 @@
     <v-row class=" mt-7">
       <v-spacer></v-spacer>
       <v-col class="flex justify-end">
-        <span class="font-light text-gray-500 text-sm"><v-icon small>{{order_status_icon}}</v-icon>{{order.order_status}}</span>
+        <span class="font-light text-gray-500 text-sm"><v-icon small class="mr-1">{{order_status_icon}}</v-icon>{{order.order_status}}</span>
       </v-col>
     </v-row>
     <v-row>
