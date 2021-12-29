@@ -103,7 +103,12 @@
                     <v-btn class="mr-4" outlined @click="addAddress"
                       >添加</v-btn
                     >
-                    <v-btn outlined @click="addressDialog.show = false"
+                    <v-btn
+                      outlined
+                      @click="
+                        addressDialog.show = false;
+                        $refs.addressForm.reset();
+                      "
                       >取消</v-btn
                     >
                   </div>
