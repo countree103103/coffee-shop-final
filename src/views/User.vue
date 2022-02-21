@@ -11,12 +11,12 @@
               <v-card-title primary-title> 您的订单 </v-card-title>
               <v-container>
                 <Order
-                  v-for="(order, index) in orderList"
+                  v-for="(order, index) in paged_orderList"
                   :order="order"
                   :key="index"
                 ></Order>
               </v-container>
-              <v-pagination v-model="page" :length="3"></v-pagination>
+              <v-pagination v-model="page" :length="Math.ceil(orderList.length/3)"></v-pagination>
             </v-card>
           </div>
           <div v-else>
@@ -64,6 +64,11 @@ export default {
       let r = await reader(this.head);
       this.mysrc = r.result;
     },
+  },
+  computed: {
+    paged_orderList(){
+      return this.orderList.slice((this.page-1)*3,(this.page-1)*3+3);
+    }
   },
   methods: {
     async getImg() {
