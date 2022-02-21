@@ -16,7 +16,7 @@
                   :key="index"
                 ></Order>
               </v-container>
-              <v-pagination v-model="page" :length="Math.ceil(orderList.length/3)"></v-pagination>
+              <v-pagination v-model="page" :length="Math.ceil(orderList.length/order_per_page)"></v-pagination>
             </v-card>
           </div>
           <div v-else>
@@ -56,6 +56,7 @@ export default {
         address: [],
       },
       page: 1,
+      order_per_page: 4,
       orderList: [],
     };
   },
@@ -67,7 +68,7 @@ export default {
   },
   computed: {
     paged_orderList(){
-      return this.orderList.slice((this.page-1)*3,(this.page-1)*3+3);
+      return this.orderList.slice((this.page-1)*this.order_per_page,(this.page-1)*this.order_per_page+this.order_per_page);
     }
   },
   methods: {
