@@ -14,49 +14,76 @@
           ></CartProduct>
         </v-col>
         <v-col lg="5" class="order-detail-info">
-          <v-row v-if="$route.query.state == 1">
-            <v-col class="order-detail-info--attr">订单创建时间</v-col>
-            <v-col>21点16分</v-col>
-          </v-row>
-          <v-row v-if="$route.query.state == 2">
-            <v-col class="order-detail-info--attr">配送地址</v-col>
-            <v-col
-              ><v-select
-                :items="address"
-                v-model="selectedAddress"
-                label="请选择您的地址"
-              ></v-select
-            ></v-col>
-          </v-row>
-          <v-row v-if="$route.query.state == 2">
-            <v-col class="order-detail-info--attr">支付方式</v-col>
-            <v-col
-              ><v-select
-                label="请选择支付方式"
-                :items="['微信支付', '支付宝支付']"
-                v-model="payment_type"
-              ></v-select
-            ></v-col>
-          </v-row>
-          <v-row v-if="$route.query.state == 1">
-            <v-col class="order-detail-info--attr">配送员</v-col>
-            <v-col>21点16分</v-col>
-          </v-row>
-        </v-col></v-row
-      >
-      <v-row v-if="$route.query.state == 2">
-        <v-col
-          ><v-btn color="" outlined @click="submitOrder">确认订单</v-btn></v-col
-        >
+          <template v-if="$route.query.state == 1">
+            <v-row>
+              <v-col class="order-detail-info--attr">订单创建时间</v-col>
+              <v-col>{{
+                new Date(order.order_create_time).toLocaleString()
+              }}</v-col>
+            </v-row>
+            <v-row>
+              <v-col class="order-detail-info--attr">姓名</v-col>
+              <v-col>{{ order.address.split("/")[0] }}</v-col>
+            </v-row>
+            <v-row>
+              <v-col class="order-detail-info--attr">配送地址</v-col>
+              <v-col>{{ order.address.split("/")[1] }}</v-col>
+            </v-row>
+            <v-row>
+              <v-col class="order-detail-info--attr">手机号码</v-col>
+              <v-col>{{ order.address.split("/")[2] }}</v-col>
+            </v-row>
+          </template>
+          <template v-if="$route.query.state == 2">
+            <v-row>
+              <v-col class="order-detail-info--attr">配送地址</v-col>
+              <v-col
+                ><v-select
+                  :items="address"
+                  v-model="selectedAddress"
+                  label="请选择您的地址"
+                ></v-select
+              ></v-col>
+            </v-row>
+            <v-row>
+              <v-col class="order-detail-info--attr">支付方式</v-col>
+              <v-col
+                ><v-select
+                  label="请选择支付方式"
+                  :items="['微信支付', '支付宝支付']"
+                  v-model="payment_type"
+                ></v-select
+              ></v-col>
+            </v-row>
+          </template>
+        </v-col>
       </v-row>
-      <v-row v-if="$route.query.state == 1" class="mt-8">
-        <v-col
-          ><v-btn color="" outlined @click="$router.push({ name: 'Menu' })"
-            >再来一单？</v-btn
-          ></v-col
-        >
+      <v-row>
         <v-col>
-          <v-btn color="" outlined @click="$router.back()">返回</v-btn>
+          <template v-if="$route.query.state == 1">
+            <v-row class="mt-8">
+              <v-col
+                ><v-btn
+                  color=""
+                  outlined
+                  @click="$router.push({ name: 'Menu' })"
+                  >再来一单？</v-btn
+                ></v-col
+              >
+              <v-col>
+                <v-btn color="" outlined @click="$router.back()">返回</v-btn>
+              </v-col>
+            </v-row>
+          </template>
+          <template v-if="$route.query.state == 2">
+            <v-row class="lg:mt-8">
+              <v-col
+                ><v-btn color="" outlined @click="submitOrder"
+                  >确认订单</v-btn
+                ></v-col
+              >
+            </v-row>
+          </template>
         </v-col>
       </v-row>
     </v-container>
@@ -84,6 +111,7 @@ export default {
       address: [],
       selectedAddress: "",
       payment_type: "",
+      order: this.$route.params.order,
     };
   },
   async created() {
