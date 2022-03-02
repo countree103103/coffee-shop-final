@@ -43,7 +43,7 @@ section {
     color: var(--primary);
   }
   img {
-    @apply ml-1 lg:m-auto;
+    @apply ml-1 lg:ml-2;
     float: right;
     border-radius: 20px;
   }
