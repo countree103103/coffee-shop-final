@@ -10,32 +10,99 @@
           <li class="nav--item-left">
             <router-link to="menu">菜单</router-link>
           </li>
-          <li id="logo"><router-link to="Customize">
-            <svg xmlns="http://www.w3.org/2000/svg" id="图层_1" data-name="图层 1" height="40" viewBox="0 0 258.95 150.97">
-  <g>
-    <rect class="cls-1" x="1" y="72.61" width="68.94" height="7.66" rx="0.76"/>
-    <path class="cls-1" d="M179.35,363l8.6,69a.75.75,0,0,0,.75.66h37.88" transform="translate(-169.41 -282.76)"/>
-  </g>
-  <g>
-    <path class="cls-1" d="M178.84,342.94c-2.42-6.74-4.54-16,0-22s12.42-4.46,14.81-9.19c1.81-3.59.43-10.73-15.32-26.56" transform="translate(-169.41 -282.76)"/>
-    <path class="cls-1" d="M233.78,341.16c-2.42-6.73-4.54-16,0-22s12.42-4.46,14.81-9.2c1.81-3.58.43-10.73-15.32-26.55" transform="translate(-169.41 -282.76)"/>
-    <path class="cls-1" d="M206.09,342.15c-2.42-6.74-4.54-16,0-22s12.42-4.46,14.8-9.19c1.82-3.59.44-10.73-15.31-26.56" transform="translate(-169.41 -282.76)"/>
-  </g>
-  <g>
-    <path class="cls-1" d="M233,432.86l40.5-80.12a.76.76,0,0,1,1.42.17l18.25,79.95" transform="translate(-169.41 -282.76)"/>
-    <line class="cls-1" x1="87.55" y1="111.2" x2="109.67" y2="111.2"/>
-  </g>
-  <g>
-    <path class="cls-1" d="M371.51,354.94H319.33a.77.77,0,0,0-.74.56l-10.06,38.12L298.32,432.3" transform="translate(-169.41 -282.76)"/>
-    <line class="cls-1" x1="191.55" y1="110.86" x2="139.12" y2="110.86"/>
-  </g>
-  <g>
-    <line class="cls-1" x1="245.33" y1="110.86" x2="198.7" y2="110.86"/>
-    <path class="cls-1" d="M406.23,432.3h-47a.76.76,0,0,1-.74-.95l9.63-37.73,9.72-38.11a.76.76,0,0,1,.74-.57h49.79" transform="translate(-169.41 -282.76)"/>
-    <line class="cls-1" x1="245.33" y1="110.86" x2="198.7" y2="110.86"/>
-  </g>
-</svg>  
-          </router-link></li>
+          <li id="logo">
+            <router-link to="Customize">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="图层_1"
+                data-name="图层 1"
+                height="40"
+                viewBox="0 0 258.95 150.97"
+              >
+                <g>
+                  <rect
+                    class="cls-1"
+                    x="1"
+                    y="72.61"
+                    width="68.94"
+                    height="7.66"
+                    rx="0.76"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M179.35,363l8.6,69a.75.75,0,0,0,.75.66h37.88"
+                    transform="translate(-169.41 -282.76)"
+                  />
+                </g>
+                <g>
+                  <path
+                    class="cls-1"
+                    d="M178.84,342.94c-2.42-6.74-4.54-16,0-22s12.42-4.46,14.81-9.19c1.81-3.59.43-10.73-15.32-26.56"
+                    transform="translate(-169.41 -282.76)"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M233.78,341.16c-2.42-6.73-4.54-16,0-22s12.42-4.46,14.81-9.2c1.81-3.58.43-10.73-15.32-26.55"
+                    transform="translate(-169.41 -282.76)"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M206.09,342.15c-2.42-6.74-4.54-16,0-22s12.42-4.46,14.8-9.19c1.82-3.59.44-10.73-15.31-26.56"
+                    transform="translate(-169.41 -282.76)"
+                  />
+                </g>
+                <g>
+                  <path
+                    class="cls-1"
+                    d="M233,432.86l40.5-80.12a.76.76,0,0,1,1.42.17l18.25,79.95"
+                    transform="translate(-169.41 -282.76)"
+                  />
+                  <line
+                    class="cls-1"
+                    x1="87.55"
+                    y1="111.2"
+                    x2="109.67"
+                    y2="111.2"
+                  />
+                </g>
+                <g>
+                  <path
+                    class="cls-1"
+                    d="M371.51,354.94H319.33a.77.77,0,0,0-.74.56l-10.06,38.12L298.32,432.3"
+                    transform="translate(-169.41 -282.76)"
+                  />
+                  <line
+                    class="cls-1"
+                    x1="191.55"
+                    y1="110.86"
+                    x2="139.12"
+                    y2="110.86"
+                  />
+                </g>
+                <g>
+                  <line
+                    class="cls-1"
+                    x1="245.33"
+                    y1="110.86"
+                    x2="198.7"
+                    y2="110.86"
+                  />
+                  <path
+                    class="cls-1"
+                    d="M406.23,432.3h-47a.76.76,0,0,1-.74-.95l9.63-37.73,9.72-38.11a.76.76,0,0,1,.74-.57h49.79"
+                    transform="translate(-169.41 -282.76)"
+                  />
+                  <line
+                    class="cls-1"
+                    x1="245.33"
+                    y1="110.86"
+                    x2="198.7"
+                    y2="110.86"
+                  />
+                </g>
+              </svg>
+            </router-link>
+          </li>
           <li class="nav--item-right">
             <router-link to="cart"
               ><svg
@@ -98,7 +165,7 @@
         </transition>
       </div>
       <!-- <footer>广州航海学院电商18121陈周煜版权所有</footer> -->
-      <footer>版权所有</footer>
+      <footer>© 2021-2022 广州航海学院 陈周煜 版权所有</footer>
     </v-app>
     <v-snackbar
       v-model="$store.state.snackbar.show"
@@ -181,6 +248,7 @@ footer {
   color: white;
   height: 3rem;
   z-index: -1;
+  padding: 12px 0;
 }
 #cart-num {
   // position: absolute;
