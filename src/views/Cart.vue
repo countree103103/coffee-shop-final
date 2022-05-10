@@ -18,8 +18,8 @@
         <div class="cart-summary" v-if="cartList && cartList.length">
           <div class="cart-summary--button-group">
             <v-btn outlined @click="confirmOrder">结算</v-btn>
-            <v-btn color="error" @click="del = !del">删除</v-btn>
-            <v-btn color="error" @click="clearCart">清空购物车</v-btn>
+            <v-btn color="#a64036" dark @click="del = !del">删除</v-btn>
+            <v-btn color="#a64036" dark @click="clearCart">清空购物车</v-btn>
           </div>
           <span class="cart-summary--total">总共 {{ total }}￥</span>
         </div>
@@ -141,7 +141,7 @@ export default {
   @apply flex flex-col justify-start items-center mt-8;
 }
 .product-delete {
-  @apply mr-1 animate-bounce top-1 left-1 lg:left-40 lg:top-0;
+  @apply mr-1 animate-bounce -top-2 left-1 lg:left-40 lg:-top-3;
   position: absolute;
   z-index: 1;
 }
@@ -162,7 +162,7 @@ export default {
     }
   }
   .cart-summary--total {
-    @apply flex justify-center items-center;
+    @apply flex justify-center items-center font-light;
     font-size: 2rem;
     width: 60%;
   }
