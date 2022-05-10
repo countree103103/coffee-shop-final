@@ -29,13 +29,14 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col>
+      <v-col class="mb-3">
         <v-btn outlined small @click.stop="$router.push('/menu')"
           >再来一单</v-btn
         ></v-col
       >
-      <v-col><v-btn outlined small>去评价</v-btn></v-col>
-      <v-col class="order-total"
+      <!-- <v-col><v-btn outlined small>去评价</v-btn></v-col> -->
+      <!-- <v-spacer></v-spacer> -->
+      <v-col class="order-total flex flex-row justify-end mt-2"
         ><span
           >共{{ order.product_num_total }}件商品，实付{{
             order.order_sum
@@ -87,7 +88,7 @@ export default {
     //   }
     // },
     order_status_icon() {
-      let icon = ""
+      let icon = "";
       switch (this.order.order_status) {
         case "待确认": {
           icon = "mdi-clock-time-four-outline";
@@ -111,7 +112,7 @@ export default {
         }
 
         default:
-          icon = ""
+          icon = "";
           break;
       }
       return icon;
