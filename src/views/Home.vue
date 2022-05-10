@@ -17,12 +17,49 @@
         1727年巴西北部开始了咖啡种植，然而糟糕的气候条件使得这种作物种植逐渐转移到了其他区域，最初是里约热内卢，最后到了圣保罗和米纳斯洲（大约1800-1850期间），在这里咖啡找到了它最理想的生长环境。咖啡种植在这里发展壮大，直到成为巴西最重要的经济来源。正是在1740到1850期间咖啡种植在中南美洲达到了它的普及之最。虽然咖啡诞生于非洲，但是种植和家庭消费却相对来说是近代才引进的。实际上，正是欧洲人让咖啡重返故地，将其引进他们的殖民地，在那里，由于有利的土地和气候条件，咖啡才得以兴旺繁荣。
       </p>
     </section>
+    <Advertise @go-to-menu="goToMenu" />
   </div>
 </template>
 
 <script>
+import Advertise from "./Advertise.vue";
+import gsap from "gsap/all";
+
 export default {
   name: "Home",
+  components: {
+    Advertise,
+  },
+  methods: {
+    goToMenu() {
+      gsap.to("#comm", {
+        opacity: 0,
+        right: -100,
+      });
+      gsap.to("#advertise_text", {
+        opacity: 0,
+        right: -100,
+      });
+      setTimeout(() => {
+        this.$router.push("/menu");
+      }, 300);
+    },
+  },
+  beforeRouteLeave(from, to, next) {
+    gsap.to("#comm", {
+      opacity: 0,
+      right: -100,
+      duration: 0.5,
+    });
+    gsap.to("#advertise_text", {
+      opacity: 0,
+      right: -100,
+      duration: 0.5,
+    });
+    setTimeout(() => {
+      next();
+    }, 300);
+  },
 };
 </script>
 

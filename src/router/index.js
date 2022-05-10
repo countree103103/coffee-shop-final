@@ -56,7 +56,7 @@ const routes = [
   {
     path: "/Customize",
     name: "Customize",
-    component: () => import("../views/Coffee.vue"),
+    component: () => import("../views/Advertise.vue"),
     meta: {
       index: 2,
     },
