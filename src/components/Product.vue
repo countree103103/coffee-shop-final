@@ -127,15 +127,17 @@ export default {
   },
   methods: {
     parseProductOpt(opt) {
-      let new_opt_arr = [];
-      for (const i of opt) {
-        let new_opt = {};
-        new_opt["title"] = i.title;
-        new_opt["attr"] = i.attr.split(",");
-        new_opt["value"] = "";
-        new_opt_arr.push(new_opt);
+      if (opt) {
+        let new_opt_arr = [];
+        for (const i of opt) {
+          let new_opt = {};
+          new_opt["title"] = i.title;
+          new_opt["attr"] = i.attr.split(",");
+          new_opt["value"] = "";
+          new_opt_arr.push(new_opt);
+        }
+        return new_opt_arr;
       }
-      return new_opt_arr;
     },
     detail(e) {
       console.log(e);
