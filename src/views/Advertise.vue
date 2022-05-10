@@ -21,6 +21,7 @@
       width="70"
       contain
     ></v-img> -->
+    <img src="@/assets/jp.png" id="jp" />
   </div>
 </template>
 
@@ -60,6 +61,11 @@ export default {
         delay: 0.5,
         duration: 0.5,
       });
+      gsap.from("#jp", {
+        opacity: 0,
+        delay: 1.5,
+        duration: 3,
+      });
       gsap.from("#advertise_text", {
         opacity: 0,
         right: -100,
@@ -93,6 +99,9 @@ export default {
 #advertise_text {
   position: relative;
   animation: wiggle infinite 1s;
+  span {
+    color: var(--primary);
+  }
 }
 #comm {
   @apply flex flex-row p-1 bg-opacity-90 rounded-tl-3xl rounded-bl-3xl backdrop-blur backdrop-filter;
@@ -106,6 +115,13 @@ export default {
   background-color: #bfab9e;
 }
 #coffee-cup {
+}
+#jp {
+  position: absolute;
+  height: 70px;
+  right: 60px;
+  top: -10px;
+  z-index: 1;
 }
 
 @keyframes wiggle {
