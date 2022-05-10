@@ -149,7 +149,7 @@ export default {
     width: 90%;
     margin-bottom: 10px;
     // border-radius: 10px;
-    box-shadow: none;
+    box-shadow: 0 3px 3px rgba($color: #000000, $alpha: 0.2);
     overflow: inherit;
   }
 }
